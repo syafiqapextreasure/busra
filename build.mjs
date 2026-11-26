@@ -28,7 +28,7 @@ function icon(id){
  let svg;
  if(id==='whatsapp') svg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 21l1.2-4a9 9 0 1 1 3.3 3z"/><path d="M8 7c-2 3 3 9 7 10 2 0 3-2 2-3l-2-1-1 1c-1.7-.7-3-2-4-4l1-1-1-2z"/></svg>';
  else {let file='node_modules/lucide-static/icons/'+(iconNames[id]||id)+'.svg'; if(!fs.existsSync(file)) file='node_modules/lucide-static/icons/circle-dot.svg';svg=fs.readFileSync(file,'utf8').replace(/^[\s\S]*?<svg/,'<svg');}
- svg=svg.replace(/\sclass="[^"]*"/,'').replace(/<svg\b/,'<svg class="glyph" aria-hidden="true" focusable="false"');
+ svg=svg.replace(/\s+class="[^"]*"/,'').replace(/<svg\b/,'<svg class="glyph" aria-hidden="true" focusable="false"');
  cache.set(id,svg);return svg;
 }
 function img(id,alt='',cls=''){
@@ -62,12 +62,18 @@ for(const lang of ['ms','en']){
   const dataGraph=[schema];
   if(key!=='home')dataGraph.push(crumbSchema);
   if(routes[key][0].startsWith('perkhidmatan/'))dataGraph.push({'@context':'https://schema.org','@type':'Service',name:pt,description:desc,url:origin+url(key),provider:{'@id':origin+'/#busra'},areaServed:'Seri Kembangan'});
-  const html=`<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(title)}</title><meta name="description" content="${esc(desc)}"><link rel="canonical" href="${origin+url(key)}">${['ms','en','x-default'].map(l=>`<link rel="alternate" hreflang="${l}" href="${origin+urlFor(key,l==='en'?'en':'ms')}">`).join('')}<meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:image" content="${origin}/media/home-hero.webp"><meta name="theme-color" content="#062a42">${key==='quote-confirmation'?'<meta name="robots" content="noindex,follow">':''}<link rel="icon" href="/media/brand-mark.svg"><link rel="stylesheet" href="/site.css"><link rel="preload" as="font" type="font/woff2" crossorigin href="/inter.woff2"><script type="application/ld+json">${JSON.stringify(dataGraph)}</script><script type="module" src="/app.js"></script></head><body data-confirm="${url('quote-confirmation')}"><a class="skip" href="#main">${t('Langkau ke kandungan','Skip to content')}</a>${header}<main id="main">${key==='home'?home(ctx):item.render(ctx)}</main>${footer}</body></html>`;
+  const loader=`<dialog class="page-loader" aria-labelledby="loader-title"><div class="loader-panel">
+    <div class="loader-emblem"><img src="/media/brand-mark.svg" alt="BUSRA" width="66" height="66"></div>
+    <div class="loader-status"><span id="loader-title" tabindex="-1" autofocus>${t('Memuatkan gambar','Loading images')}</span><span data-percent aria-hidden="true">0%</span></div>
+    <progress value="0" max="100" aria-labelledby="loader-title"></progress>
+    <button type="button" data-skip-loader>${t('Terus ke laman','Continue to page')}</button>
+  </div></dialog>`;
+  const html=`<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(title)}</title><meta name="description" content="${esc(desc)}"><link rel="canonical" href="${origin+url(key)}">${['ms','en','x-default'].map(l=>`<link rel="alternate" hreflang="${l}" href="${origin+urlFor(key,l==='en'?'en':'ms')}">`).join('')}<meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:image" content="${origin}/media/home-hero.webp"><meta name="theme-color" content="#062a42">${key==='quote-confirmation'?'<meta name="robots" content="noindex,follow">':''}<link rel="icon" href="/media/brand-mark.svg"><link rel="stylesheet" href="/site.css"><link rel="preload" as="font" type="font/woff2" crossorigin href="/inter.woff2"><script type="application/ld+json">${JSON.stringify(dataGraph)}</script><script type="module" src="/app.js"></script></head><body data-confirm="${url('quote-confirmation')}"><a class="skip" href="#main">${t('Langkau ke kandungan','Skip to content')}</a>${header}<main id="main">${key==='home'?home(ctx):item.render(ctx)}</main>${footer}${loader}</body></html>`;
   write(url(key).slice(1)+'index.html',html);
  }
 }
-write('site.css',['src/site.css','src/inner.css'].map(f=>fs.readFileSync(f,'utf8')).join('\n'));
-for(const f of ['app.js','inner.js'])fs.copyFileSync('src/'+f,'public/'+f);
+write('site.css',['src/site.css','src/inner.css','src/experience.css'].map(f=>fs.readFileSync(f,'utf8')).join('\n'));
+for(const f of ['app.js','inner.js','experience.js'])fs.copyFileSync('src/'+f,'public/'+f);
 fs.copyFileSync('node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2','public/inter.woff2');
 write('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+Object.keys(routes).filter(k=>k!=='quote-confirmation').flatMap(k=>['ms','en'].map(l=>'<url><loc>'+origin+urlFor(k,l)+'</loc></url>')).join('')+'</urlset>');
 write('robots.txt','User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\nSitemap: '+origin+'/sitemap.xml\n');

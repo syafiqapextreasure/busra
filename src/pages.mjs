@@ -199,11 +199,10 @@ const whatsapp = (c, style = 'in-outline') => `<a class="in-button ${style}" hre
 const quoteButton = (c, key) => btn(c, serviceQuote(c, key), quoteLabel(c), '', 'arrow');
 const actions = (c, key, dark = false) => `<div class="in-actions">${quoteButton(c, key)}${whatsapp(c, dark ? 'in-outline in-outline-light' : 'in-outline')}</div>`;
 const info = c => `<div class="in-info"><span>${icon(c, 'pin')}${location}</span><a href="${tel}">${icon(c, 'phone')}${phone}</a></div>`;
-const caption = c => c.t('Visual konsep', 'Concept visual');
-const figure = (c, file, alt, cls = '') => `<figure class="${cls}">${c.img(file, alt)}<figcaption>${caption(c)}</figcaption></figure>`;
+const figure = (c, file, alt, cls = '') => `<figure class="${cls}">${c.img(file, alt)}</figure>`;
 const crumb = (c, label, parent) => `<nav class="in-crumb" aria-label="${c.t('Laluan navigasi', 'Breadcrumb')}" ><ol><li><a href="${c.url('home')}">${homeLabel(c)}</a></li>${parent ? `<li><a href="${c.url(parent[0])}">${parent[1]}</a></li>` : ''}<li aria-current="page">${label}</li></ol></nav>`;
 const heading = text => `<h2 class="in-heading">${text}</h2>`;
-const hero = (c, { title, lead, file = 'home-hero', alt = title, parent, label = title, eyebrow, body, key, showActions = true, showInfo = true, badge, style = '' }) => `<section class="in-hero ${style}"><div class="in-wrap in-hero-grid"><div class="in-hero-copy">${crumb(c, label, parent)}${eyebrow ? `<p class="in-eyebrow">${eyebrow}</p>` : ''}<h1${eyebrow ? '' : ' class="in-accent-title"'}>${title}</h1><p class="in-lead" data-edit="intro">${lead}</p>${body ? `<p data-edit="intro-detail">${body}</p>` : ''}${badge ? `<p class="in-badge">${badge}</p>` : ''}${showActions ? actions(c, key) : ''}${showInfo ? info(c) : ''}</div>${c.img(file, alt, 'in-hero-photo')}</div></section>`;
+const hero = (c, { title, lead, file = 'home-hero', alt = title, parent, label = title, eyebrow, body, key, showActions = true, showInfo = true, badge, style = '' }) => `<section class="in-hero ${style}"><div class="in-wrap in-hero-grid"><div class="in-hero-copy">${crumb(c, label, parent)}${eyebrow ? `<p class="in-eyebrow">${eyebrow}</p>` : ''}<h1${eyebrow ? '' : ' class="in-accent-title"'}>${title}</h1><p class="in-lead" data-edit="intro">${lead}</p>${body ? `<p data-edit="intro-detail">${body}</p>` : ''}${badge ? `<p class="in-badge">${badge}</p>` : ''}${showActions ? actions(c, key) : ''}${showInfo ? info(c) : ''}</div>${style==='in-compact-hero' ? `<div class="in-compact-media">${c.img(file,alt,'in-hero-photo')}</div>` : c.img(file,alt,'in-hero-photo')}</div></section>`;
 const overviewAlt = c => c.t('Pintu dan tingkap aluminium hitam menghadap halaman hijau', 'Black aluminium doors and windows looking out to a leafy courtyard');
 const stepsContent = [
   ['Kongsi Keperluan', 'Share Your Needs', 'Beritahu kami jenis produk dan keperluan ruang anda.', 'Tell us what you need and how you use the space.', 'clipboard'],
@@ -241,7 +240,7 @@ const productPage = (c,key) => {
   ${hero(c, { title, lead: pick(c,product.lead), file: slug + '-hero', alt: name(c,key), parent: ['services',serviceLabel(c)], label: name(c,key), eyebrow: c.t('Perkhidmatan Kami', 'Our Services'), key })}
   <section class="in-wrap in-section">
     ${heading(construction ? c.t('Semakan skop projek', 'Reviewing the project scope') : c.t('Pilihan untuk ruang anda', 'Options for your space'))}
-    ${construction ? iconCards(c,product.options) : `<div class="in-grid in-grid-three">${product.options.map(([ms,en,bodyMs,bodyEn],i) => card(c,{ title:c.t(ms,en),image:slug + '-option-' + (i+1),alt:'',copy:c.t(bodyMs,bodyEn) })).join('')}</div><p class="in-caption">${caption(c)}</p>`}
+    ${construction ? iconCards(c,product.options) : `<div class="in-grid in-grid-three in-product-options">${product.options.map(([ms,en,bodyMs,bodyEn],i) => card(c,{ title:c.t(ms,en),image:slug + '-option-' + (i+1),alt:'',copy:c.t(bodyMs,bodyEn) })).join('')}</div>`}
   </section>
   <section class="in-wrap in-section in-consider in-grid in-grid-two">
     <div>${heading(construction ? c.t('Maklumat untuk pertanyaan', 'Information to share') : c.t('Apa yang perlu dipertimbangkan', 'What to consider'))}
@@ -260,7 +259,6 @@ const servicesPage = c => `<div class="inner-page">
   <section class="in-wrap in-section" data-filter-group>
     ${chips(c,[['all','Semua','All'],['aluminium','Aluminium','Aluminium'],['glass','Kaca','Glass'],['construction','Pembinaan','Construction']])}
     <div class="in-grid in-grid-three in-service-directory">${Object.keys(products).map(key => serviceCard(c,key,true)).join('')}</div>
-    <p class="in-caption">${caption(c)}</p>
   </section>
   ${process(c)}
   ${cta(c,c.t('Belum pasti pilihan yang sesuai?', 'Unsure which option fits?'),c.t('Kongsi jenis ruang dan keperluan anda.','Share the type of space and what you need.'))}
@@ -298,7 +296,7 @@ const projects = [
   ['Kabinet Dapur Aluminium','Aluminium Kitchen Cabinets','Kabinet dapur untuk penyimpanan dengan susun atur yang praktikal.','Kitchen cabinets with a practical layout for storage.','cabinets','residential aluminium','aluminium-cabinets'],
 ];
 const projectsPage = c => `<div class="inner-page in-projects">
-  ${hero(c,{ title:c.t('Projek &amp; Inspirasi','Projects &amp; Inspiration'), label:projectLabel(c),lead:c.t('Terokai pilihan rekaan aluminium dan kaca untuk ruang anda.','Explore aluminium and glass design ideas for your space.'),file:'projects-hero',alt:name(c,'aluminium-doors'),showActions:false,showInfo:false,badge:c.t('Contoh paparan • Visual konsep','Design examples • Concept visuals') })}
+  ${hero(c,{ title:c.t('Projek &amp; Inspirasi','Projects &amp; Inspiration'), label:projectLabel(c),lead:c.t('Terokai pilihan rekaan aluminium dan kaca untuk ruang anda.','Explore aluminium and glass design ideas for your space.'),file:'projects-hero',alt:name(c,'aluminium-doors'),showActions:false,showInfo:false,badge:c.t('Contoh paparan','Design examples') })}
   <section class="in-wrap in-section" data-filter-group>
     ${chips(c,[['all','Semua','All'],['residential','Kediaman','Residential'],['commercial','Komersial','Commercial'],['aluminium','Aluminium','Aluminium'],['glass','Kaca','Glass']])}
     <div class="in-grid in-grid-two in-project-directory">${projects.map(([ms,en,bodyMs,bodyEn,file,group,key]) => card(c, {
@@ -320,11 +318,10 @@ const projectDetailPage = c => {
   return `<div class="inner-page in-project-detail">
   <section class="in-wrap in-section">
     ${crumb(c,title,['projects',projectLabel(c)])}<p class="in-eyebrow">${c.t('Projek Contoh Rekaan','Project Design Example')}</p><h1>${title}</h1>
-    <p class="in-badge">${c.t('Contoh paparan projek • Visual konsep','Project design example • Concept visual')}</p><p class="in-lead">${c.t('Idea bukaan luas yang menghubungkan ruang dalaman dan halaman.','A wide opening that connects the interior and the courtyard.')}</p>
+    <p class="in-badge">${c.t('Contoh paparan projek','Project design example')}</p><p class="in-lead">${c.t('Idea bukaan luas yang menghubungkan ruang dalaman dan halaman.','A wide opening that connects the interior and the courtyard.')}</p>
     <figure class="in-gallery" data-gallery>
       <a class="in-gallery-open" href="/media/${gallery[0][0]}.webp" data-gallery-open>${c.img(gallery[0][0],pick(c,gallery[0].slice(1)),'in-gallery-main')}</a>
       <div class="in-grid in-grid-three in-gallery-thumbs">${gallery.slice(1).map(([file,ms,en]) => `<a href="/media/${file}.webp" data-gallery-photo>${c.img(file,c.t(ms,en))}</a>`).join('')}</div>
-      <figcaption>${caption(c)}</figcaption>
     </figure>
     <dialog class="in-lightbox" data-gallery-dialog aria-label="${c.t('Gambar rekaan projek','Project design photo')}">
       <form method="dialog"><button type="submit" aria-label="${c.t('Tutup gambar','Close photo')}">${icon(c,'close')}</button></form>
@@ -382,7 +379,7 @@ const contactPage = c => {
   const mapPlace = encodeURIComponent('Pangsapuri Putra Raya, Seri Kembangan, Selangor');
   const mapQuery = 'https://www.google.com/maps/search/?api=1&amp;query=' + mapPlace;
   return `<div class="inner-page in-contact">
-  ${hero(c,{title,lead:c.t('Kongsi keperluan aluminium, kaca atau pembinaan anda.','Share your aluminium, glass or construction requirements.'),file:'contact-hero',alt:c.t('Bangunan dua tingkat dengan fasad kaca','Two-storey building with a glass frontage'),showInfo:false})}
+  ${hero(c,{title,lead:c.t('Kongsi keperluan aluminium, kaca atau pembinaan anda.','Share your aluminium, glass or construction requirements.'),style:'in-compact-hero',file:'contact-hero',alt:c.t('Bangunan dua tingkat dengan fasad kaca','Two-storey building with a glass frontage'),showInfo:false})}
   <section class="in-wrap in-section in-contact-options in-grid in-grid-three" aria-label="${title}">
     <article class="in-card">${icon(c,'phone')}<h2>${c.t('Telefon','Phone')}</h2><p><strong>${phone}</strong></p>${btn(c,tel,c.t('Hubungi Sekarang','Call Now'),'', 'arrow')}</article>
     <article class="in-card">${icon(c,'whatsapp')}<h2>WhatsApp</h2><p>${c.t('Bincangkan keperluan anda.','Discuss what you need.')}</p>${whatsapp(c)}</article>
@@ -419,7 +416,7 @@ const quotePage = c => {
   const {t} = c;
   const label = quoteLabel(c);
   return `<div class="inner-page in-quote">
-    ${hero(c,{title:label,lead:t('Kongsi keperluan anda supaya kami dapat membuat semakan awal.','Share what you need so we can make an initial review.'),body:t('Medan bertanda * diperlukan.','Fields marked * are required.'),file:'quote-hero',alt:t('Peralatan bengkel di atas bingkai aluminium','Workshop tools on an aluminium frame'),eyebrow:label,showActions:false,showInfo:false})}
+    ${hero(c,{title:label,lead:t('Kongsi keperluan anda supaya kami dapat membuat semakan awal.','Share what you need so we can make an initial review.'),body:t('Medan bertanda * diperlukan.','Fields marked * are required.'),style:'in-compact-hero',file:'quote-hero',alt:t('Peralatan bengkel di atas bingkai aluminium','Workshop tools on an aluminium frame'),eyebrow:label,showActions:false,showInfo:false})}
     <div class="in-wrap in-section in-quote-layout">
       <form data-quote method="post" action="/api/quotes" enctype="multipart/form-data">
         <fieldset><legend>${heading(t('Maklumat Anda','Your Details'))}</legend><div class="in-fields">

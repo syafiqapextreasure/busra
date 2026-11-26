@@ -19,7 +19,20 @@ export function home({t,url,img,icon,wa,quote}){
     [t('Semakan & Sebut Harga','Review & quotation'),t('Kami semak keperluan dan berikan sebut harga yang sesuai.','We review your requirements and prepare a quotation.')],
     [t('Pemasangan','Installation'),t('Kerja pemasangan mengikut skop yang dipersetujui.','Installation follows the agreed scope of work.')]
   ];
-  return `<section class="home-hero"><div class="hero-copy"><p class="eyebrow">${t('Pakar Aluminium & Kaca','Aluminium & Glass Specialists')}</p><h1 data-edit="home-title">${t('Aluminium & Kaca<br>Untuk Ruang Anda.','Aluminium & Glass<br>For Your Space.')}</h1><p class="lead" data-edit="home-intro">${t('Pintu, tingkap dan kaca mengikut keperluan ruang anda.','Doors, windows and glazing to suit your space.')}</p><div class="actions">${button(quote,ask)}${button(wa,chat,true)}</div><div class="local"><a href="${url('contact')}">${icon('pin')}Seri Kembangan, Selangor</a><a href="tel:+60197275253">${icon('phone')}019-727 5253</a></div></div><div class="hero-visual">${img('home-hero',t('Pintu kaca gelangsar menghadap halaman','Sliding glass doors overlooking a courtyard'),'main-photo')}<div class="inset">${img('home-inset',t('Perincian bingkai aluminium','Aluminium frame detail'))}</div></div></section>
+  return `<section class="home-hero"><div class="hero-copy"><p class="eyebrow">${t('Pakar Aluminium & Kaca','Aluminium & Glass Specialists')}</p><h1 data-edit="home-title">${t('Aluminium & Kaca<br>Untuk Ruang Anda.','Aluminium & Glass<br>For Your Space.')}</h1><p class="lead" data-edit="home-intro">${t('Pintu, tingkap dan kaca mengikut keperluan ruang anda.','Doors, windows and glazing to suit your space.')}</p><div class="actions">${button(quote,ask)}${button(wa,chat,true)}</div><div class="local"><a href="${url('contact')}">${icon('pin')}Seri Kembangan, Selangor</a><a href="tel:+60197275253">${icon('phone')}019-727 5253</a></div></div><div class="hero-visual door-compare" data-door-compare>
+    <div class="door-photos">
+      ${img('home-hero',t('Pintu gelangsar kaca tertutup di teres','Closed sliding glass doors on the terrace'),'door-closed')}
+      ${img('door-open-hero',t('Pintu yang sama terbuka ke ruang tamu','The same doors open to the living room'),'door-open')}
+    </div>
+    <div class="door-controls" hidden>
+      <input class="door-range" type="range" min="0" max="100" value="50" aria-label="${t('Bukaan pintu gelangsar','Sliding door opening')}">
+      <span class="door-divider" aria-hidden="true"><span>${icon('chevrons-left-right')}</span></span>
+      <div class="door-presets" role="group" aria-label="${t('Kedudukan pintu','Door position')}">
+        <button type="button" data-position="0">${t('Tutup pintu','Close doors')}</button>
+        <button type="button" data-position="100">${t('Buka pintu','Open doors')}</button>
+      </div>
+    </div>
+  </div></section>
   <div class="benefits">${benefits.map((s,i)=>`<div>${icon(['layers','settings','house'][i])}<b>${s}</b></div>`).join('')}</div>
   <section class="wrap home-services"><h2 class="lined">${t('Perkhidmatan Kami','Our Services')}</h2><div class="home-grid">${services.map(([k,ms,en],i)=>`<a class="home-card" href="${url(k)}"><div>${img('home-card-'+(i+1),t(ms,en))}</div><h3>${t(ms,en)}${icon('arrow')}</h3></a>`).join('')}</div><a class="all-services" href="${url('services')}">${t('Lihat semua perkhidmatan','View all services')} →</a></section>
   <section class="process"><h2>${t('Dari idea ke pemasangan','From idea to installation')}</h2><div class="steps wrap">${steps.map(([head,desc],i)=>`<div>${icon(['clipboard-list','calculator','wrench'][i])}<div><h3>0${i+1} ${head}</h3><p>${desc}</p></div></div>`).join('')}</div></section>

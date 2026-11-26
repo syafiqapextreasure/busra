@@ -1,3 +1,4 @@
+import './experience.js';
 import './inner.js';
 const ms=document.documentElement.lang==='ms';
 const t=(m,e)=>ms?m:e;
