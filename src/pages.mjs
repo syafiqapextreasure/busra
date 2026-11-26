@@ -255,7 +255,7 @@ const productPage = (c,key) => {
   </section></div>`;
 };
 const servicesPage = c => `<div class="inner-page">
-  ${hero(c, { title:c.t('Perkhidmatan Kami','Our Services'), label:serviceLabel(c),lead:c.t('Pilihan aluminium, kaca dan pembinaan mengikut keperluan anda.','Aluminium, glass and construction options to suit your needs.'),file:'services-hero',alt:overviewAlt(c) })}
+  ${hero(c, { title:c.t('Perkhidmatan Kami','Our Services'), label:serviceLabel(c),lead:c.t('Perkhidmatan aluminium, kaca dan pembinaan untuk rumah dan premis di Lembah Klang dan sekitarnya.','Aluminium, glass and construction services for homes and businesses across the Klang Valley and surrounding areas.'),file:'services-hero',alt:overviewAlt(c) })}
   <section class="in-wrap in-section" data-filter-group>
     ${chips(c,[['all','Semua','All'],['aluminium','Aluminium','Aluminium'],['glass','Kaca','Glass'],['construction','Pembinaan','Construction']])}
     <div class="in-grid in-grid-three in-service-directory">${Object.keys(products).map(key => serviceCard(c,key,true)).join('')}</div>
@@ -283,7 +283,7 @@ const aboutPage = c => `<div class="inner-page in-about">
     <ol class="in-number-list">${approach.map(([ms,en,bodyMs,bodyEn],i) => `<li><span>0${i+1}</span><div><h3>${c.t(ms,en)}</h3><p>${c.t(bodyMs,bodyEn)}</p></div></li>`).join('')}</ol>
   </section>
   <section class="in-band"><div class="in-wrap in-credential">${icon(c,'document')}<div><h2>${c.t('Pendaftaran & Kelayakan','Registration & Qualifications')}</h2><p>${c.t('Maklumat pendaftaran boleh diminta semasa pertanyaan.','You can request registration information when you enquire.')}</p></div>${btn(c,c.url('contact'),c.t('Hubungi Kami','Contact Us'),'', 'arrow')}</div></section>
-  <section class="in-tint"><div class="in-wrap in-section in-grid in-grid-two in-location"><div>${heading(c.t('Berpusat di Seri Kembangan','Based in Seri Kembangan'))}<p>${c.t('BUSRA Solution &amp; Services berpusat di Seri Kembangan, Selangor. Kongsi lokasi projek anda untuk semakan kawasan perkhidmatan.','BUSRA Solution &amp; Services is based in Seri Kembangan, Selangor. Share your project location to check service coverage.')}</p>${whatsapp(c)}${info(c)}</div>${figure(c,'about-shopfront',c.t('Fasad kaca dengan pintu aluminium','Glass frontage with aluminium doors'))}</div></section>
+  <section class="in-tint"><div class="in-wrap in-section in-grid in-grid-two in-location"><div>${heading(c.t('Berpusat di Seri Kembangan','Based in Seri Kembangan'))}<p>${c.t('BUSRA Solution &amp; Services berpusat di Seri Kembangan, Selangor. Kami menyediakan perkhidmatan aluminium, kaca dan pembinaan di seluruh Lembah Klang dan kawasan sekitarnya.','BUSRA Solution &amp; Services is based in Seri Kembangan, Selangor. We provide aluminium, glass and construction services across the Klang Valley and surrounding areas.')}</p>${whatsapp(c)}${info(c)}</div>${figure(c,'about-shopfront',c.t('Fasad kaca dengan pintu aluminium','Glass frontage with aluminium doors'))}</div></section>
   ${cta(c,c.t('Bincangkan keperluan ruang anda.','Let’s discuss what you need for your space.'),'',{ centered:true })}
   </div>`;
 
@@ -347,7 +347,7 @@ const projectDetailPage = c => {
 };
 const faqGroups = [
   ['services','Perkhidmatan','Services','layers',[
-    ['Apakah kawasan perkhidmatan BUSRA?','Which areas does BUSRA serve?','Kami berpusat di Seri Kembangan, Selangor. Kongsi lokasi projek anda untuk semakan kawasan perkhidmatan.','We are based in Seri Kembangan, Selangor. Share your project location so we can check service coverage.'],
+    ['Apakah kawasan perkhidmatan BUSRA?','Which areas does BUSRA serve?','BUSRA meliputi Lembah Klang dan kawasan sekitarnya. Kami berpusat di Seri Kembangan, Selangor.','BUSRA serves the Klang Valley and surrounding areas from its base in Seri Kembangan, Selangor.'],
   ]],
   ['quotes','Sebut Harga','Quotes','document',[
     ['Apakah maklumat untuk meminta sebut harga?','What information do I need to request a quote?','Kongsi jenis perkhidmatan, lokasi, ringkasan keperluan dan gambar jika ada.','Share the service you need, project location, a summary and photos if available.'],
@@ -363,6 +363,15 @@ const faqGroups = [
     ['Bagaimana menjaga aluminium dan kaca?','How do I care for aluminium and glass?','Gunakan kain lembut dan produk pembersih yang sesuai dengan kemasan. Tanya cara penjagaan khusus bagi produk anda.','Use a soft cloth and a cleaner suitable for the finish. Ask for care instructions for your product.'],
   ]],
 ];
+export function faqSchema(t) {
+  return {
+    '@context':'https://schema.org', '@type':'FAQPage',
+    mainEntity:faqGroups.flatMap(([, , , , items]) => items.map(([ms,en,answerMs,answerEn]) => ({
+      '@type':'Question', name:t(ms,en),
+      acceptedAnswer:{'@type':'Answer', text:t(answerMs,answerEn)}
+    })))
+  };
+}
 const faqPage = c => `<div class="inner-page in-faq">
   ${hero(c,{title:c.t('Soalan Lazim','Frequently Asked Questions'),lead:c.t('Maklumat awal sebelum anda berbincang tentang projek.','What to know before discussing your project.'),file:'faq-hero',alt:c.t('Tingkap aluminium dengan tanaman di tepi tingkap','Aluminium windows with plants beside them'),eyebrow:c.t('Soalan Lazim','FAQs')})}
   <section class="in-wrap in-section in-index-layout">
@@ -389,7 +398,7 @@ const contactPage = c => {
     <div>${heading(c.t('Alamat Kami','Our Address'))}<address>${icon(c,'pin')}${address}</address><p>${c.t('Hubungi kami sebelum merancang kunjungan.','Contact us before planning a visit.')}</p>${btn(c,mapQuery,c.t('Buka di Google Maps','Open in Google Maps'),'', 'arrow')}</div>
     <figure><iframe class="in-google-map" title="${c.t('Peta Google untuk Pangsapuri Putra Raya','Google map of Pangsapuri Putra Raya')}" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=${mapPlace}&amp;t=m&amp;z=17&amp;hl=${c.lang}&amp;output=embed"></iframe><figcaption>${c.t('Pin menunjukkan kompleks Pangsapuri Putra Raya. Unit BUSRA ialah D-G-08.','The pin marks the Pangsapuri Putra Raya complex. BUSRA is in unit D-G-08.')}</figcaption></figure>
   </section>
-  <section class="in-wrap in-section in-coverage">${heading(c.t('Kawasan Perkhidmatan','Service Areas'))}<p>${c.t('Kongsi kawasan projek untuk semakan.','Tell us where your project is so we can check coverage.')}</p></section>
+  <section class="in-wrap in-section in-coverage">${heading(c.t('Kawasan Perkhidmatan','Service Areas'))}<p>${c.t('Kami meliputi Lembah Klang dan kawasan sekitarnya. Beritahu kami kawasan atau poskod projek anda semasa meminta sebut harga.','We serve the Klang Valley and surrounding areas. Include your project area or postcode when requesting a quote.')}</p></section>
   <section class="in-wrap in-section in-grid in-grid-two in-contact-form">
     ${figure(c,'home-hero',overviewAlt(c))}
     <div class="in-tint">${heading(c.t('Ceritakan projek anda','Tell us about your project'))}
@@ -474,7 +483,7 @@ const confirmationPage = c => {
       <a class="in-success-phone" href="${tel}">${icon(c,'phone')}${phone}</a>
     </div></section>
     <section class="in-wrap in-section in-grid in-grid-two in-confirm-links" aria-label="${t('Teroka BUSRA','Explore BUSRA')}">
-      <a class="in-card" href="${c.url('services')}" >${heading(t('Lihat Perkhidmatan','Explore Services'))}<p>${t('Terokai rangkaian aluminium, kaca dan pembinaan kami.','Explore our aluminium, glass and construction services.')}</p>${figure(c,'about-hero',overviewAlt(c))}${icon(c,'arrow')}</a>
+      <a class="in-card" href="${c.url('services')}" >${heading(t('Lihat Perkhidmatan','Explore Services'))}<p>${t('Terokai rangkaian aluminium, kaca dan pembinaan kami.','Explore aluminium, glass and construction services across the Klang Valley and surrounding areas.')}</p>${figure(c,'about-hero',overviewAlt(c))}${icon(c,'arrow')}</a>
       <a class="in-card" href="${c.url('projects')}" >${heading(t('Terokai Inspirasi','Explore Inspiration'))}<p>${t('Lihat contoh rekaan untuk merancang ruang anda.','Browse examples while planning your space.')}</p>${figure(c,'shopfront-hero',name(c,'shopfront-glass'))}${icon(c,'arrow')}</a>
     </section></div>`;
 };
@@ -501,12 +510,12 @@ const privacyPage = c => {
 };
 export const pages = {
   about:{title:['About BUSRA','Tentang BUSRA'],description:['Learn about BUSRA Solution & Services in Seri Kembangan.','Kenali BUSRA Solution & Services di Seri Kembangan.'],render:aboutPage},
-  services:{title:['Our Services','Perkhidmatan Kami'],description:['Explore our aluminium, glass and construction services.','Terokai perkhidmatan aluminium, kaca dan pembinaan kami.'],render:servicesPage},
+  services:{title:['Our Services','Perkhidmatan Kami'],description:['Explore aluminium, glass and construction services across the Klang Valley and surrounding areas.','Terokai perkhidmatan aluminium, kaca dan pembinaan di Lembah Klang dan sekitarnya.'],render:servicesPage},
   ...Object.fromEntries(Object.entries(products).map(([key,item]) => [key,{title:item.title,description:[...item.lead].reverse(),render:c => productPage(c,key)}])),
   projects:{title:['Projects & Inspiration','Projek & Inspirasi'],description:['Explore design examples for aluminium and glass.','Terokai contoh rekaan aluminium dan kaca.'],render:projectsPage},
   'project-detail':{title:['Aluminium Folding Doors','Pintu Lipat Aluminium'],description:['An aluminium folding door design example.','Contoh rekaan pintu lipat aluminium.'],render:projectDetailPage},
   faq:{title:['Frequently Asked Questions','Soalan Lazim'],description:['Answers about services, quotes, installation and care.','Jawapan tentang perkhidmatan, sebut harga, pemasangan dan penjagaan.'],render:faqPage},
-  contact:{title:['Contact Us','Hubungi Kami'],description:['Contact BUSRA Solution & Services in Seri Kembangan.','Hubungi BUSRA Solution & Services di Seri Kembangan.'],render:contactPage},
+  contact:{title:['Contact Us','Hubungi Kami'],description:['Contact BUSRA in Seri Kembangan for projects in the Klang Valley and surrounding areas.','Hubungi BUSRA di Seri Kembangan untuk projek di Lembah Klang dan kawasan sekitarnya.'],render:contactPage},
   'request-quote':{title:['Request a Quote','Minta Sebut Harga'],description:['Share your project details with BUSRA.','Kongsi butiran projek anda dengan BUSRA.'],render:quotePage},
   'quote-confirmation':{title:['Request Confirmation','Pengesahan Permintaan'],description:['Confirmation and next steps for a BUSRA enquiry.','Pengesahan dan langkah seterusnya untuk pertanyaan BUSRA.'],render:confirmationPage},
   privacy:{title:['Privacy Notice','Notis Privasi'],description:['Learn how website enquiry information is used.','Ketahui penggunaan maklumat pertanyaan laman web.'],render:privacyPage},

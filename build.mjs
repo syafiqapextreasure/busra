@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {home} from './src/home.mjs';
-import {pages} from './src/pages.mjs';
+import {pages,faqSchema} from './src/pages.mjs';
 const routes = {
  home:['',''],about:['tentang-kami','about'],services:['perkhidmatan','services'],
  'aluminium-doors':['perkhidmatan/pintu-aluminium','services/aluminium-doors'],
@@ -43,8 +43,10 @@ for(const lang of ['ms','en']){
  for(const key of Object.keys(routes)){
   const item=pages[key],other=lang==='ms'?'en':'ms';
   const pt=key==='home'?t('Pakar Aluminium & Kaca','Aluminium & Glass Specialists'):item.title[lang==='ms'?1:0];
-  const desc=key==='home'?t('Pintu aluminium, tingkap, skrin mandian dan kaca kedai di Seri Kembangan. Kongsi ukuran dan lokasi projek untuk sebut harga BUSRA.','Explore aluminium doors, windows, shower screens and shopfront glass in Seri Kembangan. Send your dimensions and location for a BUSRA quotation.'):item.description[lang==='ms'?1:0];
-  const title=pt+' | BUSRA'+(key==='home'||routes[key][0].startsWith('perkhidmatan')?' · Seri Kembangan':'');
+  const desc=key==='home'?t('Pintu aluminium, tingkap, skrin mandian dan kaca kedai dari BUSRA di Seri Kembangan. Cover kawasan Lembah Klang dan sekitarnya. Minta sebut harga.','BUSRA in Seri Kembangan supplies aluminium doors, windows, shower screens and shopfront glass across the Klang Valley and surrounding areas. Request a quote.'):item.description[lang==='ms'?1:0];
+  const title=key==='services'
+    ? t('Perkhidmatan Aluminium, Kaca & Pembinaan di Lembah Klang','Aluminium, Glass & Construction Services in the Klang Valley')+' | BUSRA'
+    : pt+' | BUSRA'+(key==='home'||routes[key][0].startsWith('perkhidmatan')?' · Seri Kembangan':'');
   const servicesActive=key==='services'||routes[key][0].startsWith('perkhidmatan/');
   const serviceIcons=['door-open','panels-top-left','shower-head','store','building-2','square','layout-panel-top','hard-hat'];
   const serviceItems=Object.keys(routes).filter(k=>routes[k][0].startsWith('perkhidmatan/')).map((k,i)=>
@@ -57,11 +59,16 @@ for(const lang of ['ms','en']){
   const brand=`<a class="brand" href="${url('home')}" aria-label="BUSRA · ${t('Utama','Home')}"><img src="/media/busra-logo.svg" alt="BUSRA Solution &amp; Services"></a>`;
   const header=`<header class="top">${brand}<button class="mobile-toggle" aria-expanded="false" aria-controls="mainnav" aria-label="${t('Buka menu','Open menu')}">${icon('menu')}</button><nav id="mainnav" aria-label="${t('Navigasi utama','Main menu')}">${links()}</nav><div class="head-end"><div class="langs"><a href="${urlFor(key,'ms')}" lang="ms" ${lang==='ms'?'aria-current="true"':''}>BM</a> | <a href="${urlFor(key,'en')}" lang="en" ${lang==='en'?'aria-current="true"':''}>EN</a></div><a class="btn" href="${quote}">${t('Minta Sebut Harga','Request a Quote')}</a></div></header>`;
   const footer=`<footer class="bottom">${brand}<div class="footer-grid"><a href="tel:+60197275253">${icon('phone')}019-727 5253</a><a href="${url('contact')}">${icon('pin')}Seri Kembangan, Selangor</a><nav>${links(true)}</nav><div class="utility"><a href="${url('projects')}">${t('Projek','Projects')}</a> · <a href="${url('faq')}">${t('Soalan Lazim','FAQ')}</a> · <a href="${url('privacy')}">${t('Notis Privasi','Privacy Notice')}</a></div></div></footer>`;
-  const schema={'@context':'https://schema.org','@type':'HomeAndConstructionBusiness','@id':origin+'/#busra',name:'BUSRA Solution & Services',url:origin+'/ms/',telephone:'+60197275253',image:origin+'/media/home-hero.webp',address:{'@type':'PostalAddress',streetAddress:'D-G-08, Pangsapuri Putra Raya, Jalan PP29, Taman Pinggiran Putra, Seksyen 2',postalCode:'43300',addressLocality:'Seri Kembangan',addressRegion:'Selangor',addressCountry:'MY'}};
+  const areaServed=[
+    {'@type':'Place',name:t('Lembah Klang','Klang Valley'),alternateName:t('Klang Valley','Lembah Klang')},
+    t('Kawasan sekitar Lembah Klang','Areas surrounding the Klang Valley')
+  ];
+  const schema={'@context':'https://schema.org','@type':'HomeAndConstructionBusiness','@id':origin+'/#busra',name:'BUSRA Solution & Services',url:origin+'/ms/',telephone:'+60197275253',areaServed,image:origin+'/media/home-hero.webp',address:{'@type':'PostalAddress',streetAddress:'D-G-08, Pangsapuri Putra Raya, Jalan PP29, Taman Pinggiran Putra, Seksyen 2',postalCode:'43300',addressLocality:'Seri Kembangan',addressRegion:'Selangor',addressCountry:'MY'}};
   const crumbSchema={'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:t('Utama','Home'),item:origin+url('home')},{'@type':'ListItem',position:2,name:pt,item:origin+url(key)}]};
   const dataGraph=[schema];
+  if(key==='faq')dataGraph.push(faqSchema(t));
   if(key!=='home')dataGraph.push(crumbSchema);
-  if(routes[key][0].startsWith('perkhidmatan/'))dataGraph.push({'@context':'https://schema.org','@type':'Service',name:pt,description:desc,url:origin+url(key),provider:{'@id':origin+'/#busra'},areaServed:'Seri Kembangan'});
+  if(routes[key][0].startsWith('perkhidmatan/'))dataGraph.push({'@context':'https://schema.org','@type':'Service',name:pt,description:desc,url:origin+url(key),provider:{'@id':origin+'/#busra'},areaServed});
   const html=`<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(title)}</title><meta name="description" content="${esc(desc)}"><link rel="canonical" href="${origin+url(key)}">${['ms','en','x-default'].map(l=>`<link rel="alternate" hreflang="${l}" href="${origin+urlFor(key,l==='en'?'en':'ms')}">`).join('')}<meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:image" content="${origin}/media/home-hero.webp"><meta name="theme-color" content="#062a42">${key==='quote-confirmation'?'<meta name="robots" content="noindex,follow">':''}<link rel="icon" href="/media/brand-mark.svg"><link rel="stylesheet" href="/site.css"><link rel="preload" as="font" type="font/woff2" crossorigin href="/inter.woff2"><script type="application/ld+json">${JSON.stringify(dataGraph)}</script><script type="module" src="/app.js"></script></head><body data-confirm="${url('quote-confirmation')}"><a class="skip" href="#main">${t('Langkau ke kandungan','Skip to content')}</a>${header}<main id="main">${key==='home'?home(ctx):item.render(ctx)}</main>${footer}</body></html>`;
   write(url(key).slice(1)+'index.html',html);
  }

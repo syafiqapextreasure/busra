@@ -2,6 +2,8 @@
 
 The priority phrase for the Malay homepage is **pakar aluminium dan kaca Seri Kembangan**. Its English counterpart is **aluminium and glass specialist Seri Kembangan**. Both describe the services shown on the posters and the location a customer can verify. These priorities are qualitative, based on service fit and observed local competitors. Search volume and ranking have not been measured.
 
+BUSRA serves the Klang Valley and surrounding areas from Seri Kembangan. The Malay coverage phrase is **Cover kawasan Lembah Klang dan sekitarnya**. The FAQ answers the coverage question in both languages, and business and service structured data identify the region under its Malay and English names.
+
 | Page | Malay search intent | English search intent |
 |---|---|---|
 | Aluminium doors | pintu aluminium Seri Kembangan, pintu gelangsar aluminium, pintu lipat | aluminium sliding door Seri Kembangan, folding doors |
