@@ -8,9 +8,6 @@ function setMenu(open){toggle.setAttribute('aria-expanded',String(open));nav.cla
 toggle?.addEventListener('click',()=>setMenu(toggle.getAttribute('aria-expanded')!=='true'));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&nav.classList.contains('open')){setMenu(false);toggle.focus()}});
 document.addEventListener('click',e=>{if(!e.target.closest('.top')&&nav.classList.contains('open'))setMenu(false)});
-const reduce=matchMedia('(prefers-reduced-motion: reduce)');
-const hero=document.querySelector('.hero-visual');
-if(hero){let queued=false;addEventListener('scroll',()=>{if(!queued&&!reduce.matches){queued=true;requestAnimationFrame(()=>{hero.style.setProperty('--offset',Math.min(8,scrollY*.045)+'px');queued=false})}},{passive:true});}
 document.querySelectorAll('form[data-quote]').forEach(form=>{
  const status=form.querySelector('[data-quote-status]')||document.createElement('p');status.setAttribute('role','status');status.setAttribute('aria-live','polite');if(!status.isConnected)form.append(status);
  const trap=document.createElement('input');trap.name='website';trap.tabIndex=-1;trap.autocomplete='off';trap.hidden=true;form.append(trap);

@@ -35,7 +35,7 @@ function img(id,alt='',cls=''){
  const base='/media/'+esc(id);
  const lead=id.endsWith('-hero');
  const sizes=cls==='in-gallery-main'||id==='project-detail-hero'?'94vw':lead?'(max-width: 880px) 100vw, 56vw':'auto, (max-width: 880px) 92vw, 40vw';
- return `<img src="${base}.webp" srcset="${base}-480.webp 480w, ${base}-960.webp 960w, ${base}.webp 1536w" sizes="${sizes}" alt="${esc(alt)}" class="${esc(cls)}" decoding="async" ${lead?'fetchpriority="high"':'loading="lazy"'}>`;
+ return `<img data-site-photo src="${base}.webp" srcset="${base}-480.webp 480w, ${base}-960.webp 960w, ${base}.webp 1536w" sizes="${sizes}" alt="${esc(alt)}" class="${esc(cls)}" decoding="async" ${lead?'fetchpriority="high"':'loading="lazy"'}>`;
 }
 const wa='https://wa.me/60197275253';
 for(const lang of ['ms','en']){
@@ -62,13 +62,7 @@ for(const lang of ['ms','en']){
   const dataGraph=[schema];
   if(key!=='home')dataGraph.push(crumbSchema);
   if(routes[key][0].startsWith('perkhidmatan/'))dataGraph.push({'@context':'https://schema.org','@type':'Service',name:pt,description:desc,url:origin+url(key),provider:{'@id':origin+'/#busra'},areaServed:'Seri Kembangan'});
-  const loader=`<dialog class="page-loader" aria-labelledby="loader-title"><div class="loader-panel">
-    <div class="loader-emblem"><img src="/media/brand-mark.svg" alt="BUSRA" width="66" height="66"></div>
-    <div class="loader-status"><span id="loader-title" tabindex="-1" autofocus>${t('Memuatkan gambar','Loading images')}</span><span data-percent aria-hidden="true">0%</span></div>
-    <progress value="0" max="100" aria-labelledby="loader-title"></progress>
-    <button type="button" data-skip-loader>${t('Terus ke laman','Continue to page')}</button>
-  </div></dialog>`;
-  const html=`<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(title)}</title><meta name="description" content="${esc(desc)}"><link rel="canonical" href="${origin+url(key)}">${['ms','en','x-default'].map(l=>`<link rel="alternate" hreflang="${l}" href="${origin+urlFor(key,l==='en'?'en':'ms')}">`).join('')}<meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:image" content="${origin}/media/home-hero.webp"><meta name="theme-color" content="#062a42">${key==='quote-confirmation'?'<meta name="robots" content="noindex,follow">':''}<link rel="icon" href="/media/brand-mark.svg"><link rel="stylesheet" href="/site.css"><link rel="preload" as="font" type="font/woff2" crossorigin href="/inter.woff2"><script type="application/ld+json">${JSON.stringify(dataGraph)}</script><script type="module" src="/app.js"></script></head><body data-confirm="${url('quote-confirmation')}"><a class="skip" href="#main">${t('Langkau ke kandungan','Skip to content')}</a>${header}<main id="main">${key==='home'?home(ctx):item.render(ctx)}</main>${footer}${loader}</body></html>`;
+  const html=`<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(title)}</title><meta name="description" content="${esc(desc)}"><link rel="canonical" href="${origin+url(key)}">${['ms','en','x-default'].map(l=>`<link rel="alternate" hreflang="${l}" href="${origin+urlFor(key,l==='en'?'en':'ms')}">`).join('')}<meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:image" content="${origin}/media/home-hero.webp"><meta name="theme-color" content="#062a42">${key==='quote-confirmation'?'<meta name="robots" content="noindex,follow">':''}<link rel="icon" href="/media/brand-mark.svg"><link rel="stylesheet" href="/site.css"><link rel="preload" as="font" type="font/woff2" crossorigin href="/inter.woff2"><script type="application/ld+json">${JSON.stringify(dataGraph)}</script><script type="module" src="/app.js"></script></head><body data-confirm="${url('quote-confirmation')}"><a class="skip" href="#main">${t('Langkau ke kandungan','Skip to content')}</a>${header}<main id="main">${key==='home'?home(ctx):item.render(ctx)}</main>${footer}</body></html>`;
   write(url(key).slice(1)+'index.html',html);
  }
 }
