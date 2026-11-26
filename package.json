@@ -1,0 +1,19 @@
+{
+  "name": "busra-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "npm run build && wrangler dev",
+    "deploy": "npm run build && wrangler deploy",
+    "api:test": "node --test --test-isolation=none tests/worker.test.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.2.0",
+    "lucide-static": "^1.81.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

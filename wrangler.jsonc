@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "busra",
+  "main": "worker/index.mjs",
+  "compatibility_date": "2025-11-01",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "html_handling": "force-trailing-slash",
+    "run_worker_first": ["/", "/ms", "/ms/*", "/en", "/en/*", "/api/*", "/admin", "/admin/*", "/robots.txt", "/sitemap.xml"]
+  },
+  "d1_databases": [{"binding": "DB", "migrations_dir": "migrations"}],
+  "r2_buckets": [{"binding": "PHOTOS"}],
+  "triggers": {"crons": ["*/15 * * * *"]},
+  "ratelimits": [
+    {"name":"QUOTE_LIMIT","namespace_id":"88410","simple":{"limit":8,"period":60}},
+    {"name":"CLICK_LIMIT","namespace_id":"88411","simple":{"limit":40,"period":60}}
+  ]
+}
