@@ -378,7 +378,9 @@ const optional = (c, ms, en) => c.t(ms + ' (pilihan)', en + ' (optional)');
 const submit = (c, label) => `<p data-quote-status role="status"></p><button class="in-button in-submit" type="submit">${label}${icon(c,'arrow')}</button>`;
 const contactPage = c => {
   const title = c.t('Hubungi Kami','Contact Us');
-  const mapQuery = 'https://www.google.com/maps/search/?api=1&amp;query=' + encodeURIComponent(address);
+  // Google recognises the complex as a place; adding the unit number removes its pin.
+  const mapPlace = encodeURIComponent('Pangsapuri Putra Raya, Seri Kembangan, Selangor');
+  const mapQuery = 'https://www.google.com/maps/search/?api=1&amp;query=' + mapPlace;
   return `<div class="inner-page in-contact">
   ${hero(c,{title,lead:c.t('Kongsi keperluan aluminium, kaca atau pembinaan anda.','Share your aluminium, glass or construction requirements.'),file:'contact-hero',alt:c.t('Bangunan dua tingkat dengan fasad kaca','Two-storey building with a glass frontage'),showInfo:false})}
   <section class="in-wrap in-section in-contact-options in-grid in-grid-three" aria-label="${title}">
@@ -388,7 +390,7 @@ const contactPage = c => {
   </section>
   <section class="in-wrap in-section in-grid in-grid-two in-address">
     <div>${heading(c.t('Alamat Kami','Our Address'))}<address>${icon(c,'pin')}${address}</address><p>${c.t('Hubungi kami sebelum merancang kunjungan.','Contact us before planning a visit.')}</p>${btn(c,mapQuery,c.t('Buka di Google Maps','Open in Google Maps'),'', 'arrow')}</div>
-    <iframe class="in-google-map" title="${c.t('Peta Google untuk alamat BUSRA di Seri Kembangan','Google map of the BUSRA address in Seri Kembangan')}" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=${encodeURIComponent(address)}&amp;t=m&amp;z=17&amp;hl=${c.lang}&amp;output=embed"></iframe>
+    <figure><iframe class="in-google-map" title="${c.t('Peta Google untuk Pangsapuri Putra Raya','Google map of Pangsapuri Putra Raya')}" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=${mapPlace}&amp;t=m&amp;z=17&amp;hl=${c.lang}&amp;output=embed"></iframe><figcaption>${c.t('Pin menunjukkan kompleks Pangsapuri Putra Raya. Unit BUSRA ialah D-G-08.','The pin marks the Pangsapuri Putra Raya complex. BUSRA is in unit D-G-08.')}</figcaption></figure>
   </section>
   <section class="in-wrap in-section in-coverage">${heading(c.t('Kawasan Perkhidmatan','Service Areas'))}<p>${c.t('Kongsi kawasan projek untuk semakan.','Tell us where your project is so we can check coverage.')}</p></section>
   <section class="in-wrap in-section in-grid in-grid-two in-contact-form">
