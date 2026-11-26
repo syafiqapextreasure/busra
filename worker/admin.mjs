@@ -40,9 +40,9 @@ async function quoteDetail(request,env,ref,index) {
   const files=JSON.parse(row.files);
   if (index!==undefined) {
     if (request.method!=='GET' || !/^\d+$/.test(index) || !files[Number(index)]) return html('Attachment not found','',404);
-    const key=files[Number(index)], object=await env.PHOTOS.get(key);
-    if (!object) return html('Attachment not found','',404);
-    return new Response(object.body,{headers:{...headers,'content-type':'application/octet-stream','content-disposition':'attachment; filename="'+ref+'-'+(Number(index)+1)+'.'+key.split('.').pop()+'"'}});
+    const key=files[Number(index)], body=await env.PHOTOS.get(key,'stream');
+    if (!body) return html('Photo temporarily unavailable','<p>Please retry shortly.</p>',503);
+    return new Response(body,{headers:{...headers,'content-type':'application/octet-stream','content-disposition':'attachment; filename="'+ref+'-'+(Number(index)+1)+'.'+key.split('.').pop()+'"'}});
   }
   if (request.method==='POST') {
     const form=await request.formData();

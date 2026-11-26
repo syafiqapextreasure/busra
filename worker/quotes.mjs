@@ -75,6 +75,19 @@ export async function retryNotifications(env) {
   for (const row of due.results) await notifyStaff(env,row.reference);
 }
 
+async function removeUploads(storage, keys) {
+  await Promise.all(keys.map(async key => {
+    try {
+      await storage.delete(key);
+    } catch (error) {
+      // KV can temporarily rate-limit a delete immediately after the initial write.
+      if (!/429|rate.limit|too many requests/i.test(String(error))) throw error;
+      await new Promise(resolve => setTimeout(resolve, 1200));
+      await storage.delete(key);
+    }
+  }));
+}
+
 export async function submitQuote(request,env,ctx) {
   if (request.method !== 'POST') return json({error:'method'},405,{allow:'POST'});
   const origin = request.headers.get('origin');
@@ -101,11 +114,11 @@ export async function submitQuote(request,env,ctx) {
   try {
     for (let i=0;i<photos.length;i++) {
       const key=uuid+'/'+(i+1)+'.'+types[i];
-      await env.PHOTOS.put(key,photos[i].stream());
+      await env.PHOTOS.put(key,await photos[i].arrayBuffer());
       files.push(key);
     }
   } catch {
-    if (files.length) await env.PHOTOS.delete(files);
+    await removeUploads(env.PHOTOS,files);
     return json({error:'uploads_unavailable'},503);
   }
   try {
@@ -113,7 +126,7 @@ export async function submitQuote(request,env,ctx) {
   } catch {
     // A concurrent retry may already have committed. Keep files when commit outcome cannot be checked.
     const winner=await lookup();
-    if (winner?.reference!==reference && files.length) await env.PHOTOS.delete(files);
+    if (winner?.reference!==reference) await removeUploads(env.PHOTOS,files);
     if (winner) return json({reference:winner.reference});
     return json({error:'unavailable'},503);
   }

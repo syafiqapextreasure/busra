@@ -19,6 +19,7 @@ for (const gallery of document.querySelectorAll('[data-gallery]')) {
     if (!dialog?.showModal || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
     const photo = dialog.querySelector('img');
+    photo.removeAttribute('srcset');
     photo.src = main.src;
     photo.alt = main.alt;
     dialog.showModal();
@@ -29,14 +30,15 @@ for (const gallery of document.querySelectorAll('[data-gallery]')) {
       event.preventDefault();
       const image = link.querySelector('img');
       const originalSrc = main.getAttribute('src');
+      const originalSet = main.srcset;
       const originalAlt = main.alt;
       main.src = link.href;
       opener.href = link.href;
-      main.removeAttribute('srcset');
+      main.srcset = image.srcset;
       main.alt = image.alt;
       link.href = originalSrc;
       image.src = originalSrc;
-      image.removeAttribute('srcset');
+      image.srcset = originalSet;
       image.alt = originalAlt;
     });
   }

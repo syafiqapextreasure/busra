@@ -20,7 +20,11 @@ function fixture() {
     };
   }
   const objects=new Map(),tasks=[];
-  const env={DB:{prepare:stmt},PHOTOS:{put:async(k,v)=>objects.set(k,await new Response(v).arrayBuffer()),delete:async(keys)=>keys.forEach(k=>objects.delete(k)),get:async(k)=>objects.has(k)?{body:objects.get(k)}:null}};
+  const env={DB:{prepare:stmt},PHOTOS:{
+    put:async(k,bytes)=>objects.set(k,bytes),
+    delete:async(k)=>objects.delete(k),
+    get:async(k,type)=>{assert.equal(type,'stream');return objects.has(k)?new Response(objects.get(k)).body:null}
+  }};
   const fetch=(path,init={})=>app.fetch(new Request('https://busra.test'+path,init),env,{waitUntil:p=>tasks.push(p)});
   const submit=form=>fetch('/api/quotes',{method:'POST',body:form});
   return {env,objects,db,tasks,submit,fetch};
@@ -68,7 +72,9 @@ test('staff access, safe detail output, protected downloads and status transitio
   assert.equal((await h.fetch('/admin/quotes/'+reference)).status,401);
   assert.equal((await h.fetch('/admin/quotes/'+reference+'/files/0')).status,401);
   assert.match(await (await h.fetch('/admin/quotes/'+reference,{headers})).text(),/Tom &amp; Co &lt;shop&gt;/);
-  assert.equal((await h.fetch('/admin/quotes/'+reference+'/files/0',{headers})).status,200);
+  const download=await h.fetch('/admin/quotes/'+reference+'/files/0',{headers});
+  assert.equal(download.status,200);
+  assert.deepEqual(new Uint8Array(await download.arrayBuffer()),new Uint8Array(await f.get('photos').arrayBuffer()));
   const change={method:'POST',headers,body:new URLSearchParams({status:'Quoted'})};
   assert.equal((await h.fetch('/admin/quotes/'+reference,change)).status,403);
   change.headers={...headers,origin:'https://busra.test'};

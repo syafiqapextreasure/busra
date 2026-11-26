@@ -37,21 +37,22 @@ document.querySelectorAll('form[data-quote]').forEach(form=>{
 });
 
 
-const serviceLink=document.querySelector('.top nav a[href$="/perkhidmatan/"],.top nav a[href$="/services/"]');
-const dropdown=document.getElementById('service-options');
-if(serviceLink && dropdown){
- const arrow=serviceLink.querySelector('svg');arrow?.remove();
- const control=document.createElement('button');
- control.type='button';control.className='service-toggle';control.textContent='⌄';
- control.setAttribute('aria-label',t('Senarai perkhidmatan','Service list'));
- control.setAttribute('aria-controls',dropdown.id);control.setAttribute('aria-expanded','false');
- const container=document.createElement('div');container.className='service-nav';
- serviceLink.replaceWith(container);container.append(serviceLink,control,dropdown);
- function show(open){dropdown.hidden=!open;control.setAttribute('aria-expanded',String(open));}
- control.addEventListener('click',()=>show(dropdown.hidden));
- document.addEventListener('click',e=>{if(!container.contains(e.target))show(false)});
- container.addEventListener('keydown',e=>{if(e.key==='Escape'&&!dropdown.hidden){e.stopPropagation();show(false);control.focus()}});
- container.addEventListener('focusout',e=>{if(!container.contains(e.relatedTarget))show(false)});
+const serviceMenu=document.querySelector('.service-nav');
+if(serviceMenu){
+ const summary=serviceMenu.querySelector('summary');
+ document.addEventListener('click',event=>{
+  if(!serviceMenu.contains(event.target)) serviceMenu.open=false;
+ });
+ serviceMenu.addEventListener('focusout',event=>{
+  if(event.relatedTarget && !serviceMenu.contains(event.relatedTarget)) serviceMenu.open=false;
+ });
+ serviceMenu.addEventListener('keydown',event=>{
+  if(event.key==='Escape' && serviceMenu.open){
+   event.stopPropagation();
+   serviceMenu.open=false;
+   summary.focus();
+  }
+ });
 }
 document.addEventListener('click',e=>{
  const link=e.target.closest('a[href]');if(!link)return;

@@ -9,8 +9,8 @@
     "html_handling": "force-trailing-slash",
     "run_worker_first": ["/", "/ms", "/ms/*", "/en", "/en/*", "/api/*", "/admin", "/admin/*", "/robots.txt", "/sitemap.xml"]
   },
-  "d1_databases": [{"binding": "DB", "migrations_dir": "migrations"}],
-  "r2_buckets": [{"binding": "PHOTOS"}],
+  "d1_databases": [{"binding": "DB", "database_name": "busra-db", "database_id": "1ae0e4dc-b2c1-46eb-8479-c553e14c49a3", "migrations_dir": "migrations"}],
+  "kv_namespaces": [{"binding": "PHOTOS", "id": "a1b0c8211351483aa19273d9a68a25a1"}],
   "triggers": {"crons": ["*/15 * * * *"]},
   "ratelimits": [
     {"name":"QUOTE_LIMIT","namespace_id":"88410","simple":{"limit":8,"period":60}},
