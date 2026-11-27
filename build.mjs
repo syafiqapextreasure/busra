@@ -2,8 +2,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {registrationSummary} from './src/registration.mjs';
 import {home} from './src/home.mjs';
-import {pages,faqSchema} from './src/pages.mjs';
+import {blogPages,blogRoutes,articleByKey,articles} from './src/blog/index.mjs';
+import {publicOrigin} from './src/public-origin.mjs';
+import {pages as servicePages,faqSchema} from './src/pages.mjs';
+const pages={...servicePages,...blogPages};
 const routes = {
+ ...blogRoutes,
  home:['',''],about:['tentang-kami','about'],services:['perkhidmatan','services'],
  'aluminium-doors':['perkhidmatan/pintu-aluminium','services/aluminium-doors'],
  'aluminium-windows':['perkhidmatan/tingkap-aluminium','services/aluminium-windows'],
@@ -19,7 +23,7 @@ const routes = {
  'request-quote':['minta-sebut-harga','request-a-quote'],
  'quote-confirmation':['minta-sebut-harga/terima-kasih','request-a-quote/thank-you'],privacy:['notis-privasi','privacy']
 };
-const origin = (process.env.SITE_URL || 'https://busra.invalid').replace(/\/$/,'');
+const origin = (process.env.SITE_URL || publicOrigin).replace(/\/$/,'');
 const esc=s=>String(s).replace(/&(?!(?:amp|lt|gt|quot);)/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
 const urlFor=(key,lang)=>{if(!routes[key]) throw Error('Unknown route '+key);const p=routes[key][lang==='ms'?0:1];return '/'+lang+'/'+(p?p+'/':'')};
 const write=(file,data)=>{const dest=path.join('public',file);fs.mkdirSync(path.dirname(dest),{recursive:true});fs.writeFileSync(dest,data)};
@@ -41,8 +45,9 @@ function img(id,alt='',cls=''){
 }
 const wa='https://wa.me/60197275253';
 for(const lang of ['ms','en']){
- const t=(ms,en)=>lang==='ms'?ms:en,url=k=>urlFor(k,lang),quote=url('request-quote'),ctx={lang,t,url,img,icon,wa,quote};
+ const t=(ms,en)=>lang==='ms'?ms:en,url=k=>urlFor(k,lang),quote=url('request-quote'),ctx={lang,t,url,img,icon,wa,quote,origin,articles};
  for(const key of Object.keys(routes)){
+  const article=articleByKey.get(key);
   const item=pages[key],other=lang==='ms'?'en':'ms';
   const pt=key==='home'?t('Pakar Aluminium & Kaca','Aluminium & Glass Specialists'):item.title[lang==='ms'?1:0];
   const desc=key==='home'?t('Pintu aluminium, tingkap, skrin mandian dan kaca kedai dari BUSRA di Seri Kembangan. Cover kawasan Lembah Klang dan sekitarnya. Minta sebut harga.','BUSRA in Seri Kembangan supplies aluminium doors, windows, shower screens and shopfront glass across the Klang Valley and surrounding areas. Request a quote.'):item.description[lang==='ms'?1:0];
@@ -54,9 +59,9 @@ for(const lang of ['ms','en']){
   const serviceItems=Object.keys(routes).filter(k=>routes[k][0].startsWith('perkhidmatan/')).map((k,i)=>
     `<a href="${url(k)}"${k===key?' aria-current="page"':''}><span class="service-symbol">${icon(serviceIcons[i])}</span>${k==='construction' ? t('Pembinaan','Construction') : pages[k].title[lang==='ms'?1:0]}</a>`).join('');
   const serviceMenu=`<details class="service-nav"><summary class="${servicesActive?'current':''}">${t('Perkhidmatan','Services')}<span class="disclosure-icon">${icon('chevron')}</span></summary><div class="service-options"><a class="directory-link" href="${url('services')}">${t('Semua perkhidmatan','All services')}${icon('arrow')}</a><div class="service-list">${serviceItems}</div></div></details>`;
-  const links=(footer=false)=>[['home',t('Utama','Home')],['about',t('Tentang Kami','About Us')],['services',t('Perkhidmatan','Services')],['contact',t('Hubungi Kami','Contact Us')]].map(([k,label])=>{
+  const links=(footer=false)=>[['home',t('Utama','Home')],['about',t('Tentang Kami','About Us')],['services',t('Perkhidmatan','Services')],['blog','Blog'],['contact',t('Hubungi Kami','Contact Us')]].map(([k,label])=>{
     if(k==='services'&&!footer) return serviceMenu;
-    return `<a class="${key===k?'current':''}" href="${url(k)}"${key===k?' aria-current="page"':''}>${label}</a>`;
+    return `<a class="${key===k||(k==='blog'&&article)?'current':''}" href="${url(k)}"${key===k?' aria-current="page"':''}>${label}</a>`;
   }).join('');
   const brand=`<a class="brand" href="${url('home')}" aria-label="BUSRA · ${t('Utama','Home')}"><img src="/media/busra-logo.svg" alt="BUSRA Solution &amp; Services"></a>`;
   const header=`<header class="top">${brand}<button class="mobile-toggle" aria-expanded="false" aria-controls="mainnav" aria-label="${t('Buka menu','Open menu')}">${icon('menu')}</button><nav id="mainnav" aria-label="${t('Navigasi utama','Main menu')}">${links()}</nav><div class="head-end"><div class="langs"><a href="${urlFor(key,'ms')}" lang="ms" ${lang==='ms'?'aria-current="true"':''}>BM</a> | <a href="${urlFor(key,'en')}" lang="en" ${lang==='en'?'aria-current="true"':''}>EN</a></div><a class="btn" href="${quote}">${t('Minta Sebut Harga','Request a Quote')}</a></div></header>`;
@@ -68,15 +73,21 @@ for(const lang of ['ms','en']){
   const schema={'@context':'https://schema.org','@type':'HomeAndConstructionBusiness','@id':origin+'/#busra',name:'BUSRA Solution & Services',url:origin+'/ms/',telephone:'+60197275253',areaServed,image:origin+'/media/home-hero.webp',address:{'@type':'PostalAddress',streetAddress:'D-G-08, Pangsapuri Putra Raya, Jalan PP29, Taman Pinggiran Putra, Seksyen 2',postalCode:'43300',addressLocality:'Seri Kembangan',addressRegion:'Selangor',addressCountry:'MY'}};
   const crumbSchema={'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:t('Utama','Home'),item:origin+url('home')},{'@type':'ListItem',position:2,name:pt,item:origin+url(key)}]};
   const dataGraph=[schema];
+  const socialPhoto=article?.hero || (key==='blog'?'blog/office-finished':key==='site-works'?'works/146':'home-hero');
+  if(article){
+    crumbSchema.itemListElement.splice(1,0,{'@type':'ListItem',position:2,name:'Blog',item:origin+url('blog')});
+    crumbSchema.itemListElement[2].position=3;
+    dataGraph.push({'@context':'https://schema.org','@type':'BlogPosting','@id':origin+url(key)+'#article',mainEntityOfPage:origin+url(key),headline:pt,description:desc,inLanguage:lang,articleSection:t(...article.topic),image:origin+'/media/'+socialPhoto+'.webp',author:{'@type':'Organization',name:'BUSRA Solution & Services',url:origin+url('about')},publisher:{'@id':origin+'/#busra'}});
+  }
   if(key==='faq')dataGraph.push(faqSchema(t));
   if(key!=='home')dataGraph.push(crumbSchema);
   if(routes[key][0].startsWith('perkhidmatan/'))dataGraph.push({'@context':'https://schema.org','@type':'Service',name:pt,description:desc,url:origin+url(key),provider:{'@id':origin+'/#busra'},areaServed});
-  const html=`<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(title)}</title><meta name="description" content="${esc(desc)}"><link rel="canonical" href="${origin+url(key)}">${['ms','en','x-default'].map(l=>`<link rel="alternate" hreflang="${l}" href="${origin+urlFor(key,l==='en'?'en':'ms')}">`).join('')}<meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:image" content="${origin}/media/${key==='site-works'?'works/146':'home-hero'}.webp"><meta name="theme-color" content="#062a42">${key==='quote-confirmation'?'<meta name="robots" content="noindex,follow">':''}<link rel="icon" href="/media/brand-mark.svg"><link rel="stylesheet" href="/site.css"><link rel="preload" as="font" type="font/woff2" crossorigin href="/inter.woff2"><script type="application/ld+json">${JSON.stringify(dataGraph)}</script><script type="module" src="/app.js"></script>${key==='site-works'?'<script type="module" src="/works.js"></script>':''}</head><body data-confirm="${url('quote-confirmation')}"><a class="skip" href="#main">${t('Langkau ke kandungan','Skip to content')}</a>${header}<main id="main">${key==='home'?home(ctx):item.render(ctx)}</main>${footer}</body></html>`;
+  const html=`<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(title)}</title><meta name="description" content="${esc(desc)}"><link rel="canonical" href="${origin+url(key)}">${['ms','en','x-default'].map(l=>`<link rel="alternate" hreflang="${l}" href="${origin+urlFor(key,l==='en'?'en':'ms')}">`).join('')}<meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:type" content="${article?'article':'website'}"><meta property="og:url" content="${origin+url(key)}"><meta property="og:image" content="${origin}/media/${socialPhoto}.webp"><meta name="theme-color" content="#062a42">${key==='quote-confirmation'?'<meta name="robots" content="noindex,follow">':''}<link rel="icon" href="/media/brand-mark.svg"><link rel="stylesheet" href="/site.css"><link rel="preload" as="font" type="font/woff2" crossorigin href="/inter.woff2"><script type="application/ld+json">${JSON.stringify(dataGraph)}</script><script type="module" src="/app.js"></script>${key==='site-works'?'<script type="module" src="/works.js"></script>':''}${key==='blog'||article?'<script type="module" src="/blog.js"></script>':''}</head><body data-confirm="${url('quote-confirmation')}"><a class="skip" href="#main">${t('Langkau ke kandungan','Skip to content')}</a>${header}<main id="main">${key==='home'?home(ctx):item.render(ctx)}</main>${footer}</body></html>`;
   write(url(key).slice(1)+'index.html',html);
  }
 }
-write('site.css',['src/site.css','src/inner.css','src/experience.css','src/works.css'].map(f=>fs.readFileSync(f,'utf8')).join('\n'));
-for(const f of ['app.js','inner.js','experience.js','works.js'])fs.copyFileSync('src/'+f,'public/'+f);
+write('site.css',['src/site.css','src/inner.css','src/experience.css','src/works.css','src/blog.css'].map(f=>fs.readFileSync(f,'utf8')).join('\n'));
+for(const f of ['app.js','inner.js','experience.js','works.js','blog.js'])fs.copyFileSync('src/'+f,'public/'+f);
 fs.copyFileSync('node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2','public/inter.woff2');
 write('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+Object.keys(routes).filter(k=>k!=='quote-confirmation').flatMap(k=>['ms','en'].map(l=>'<url><loc>'+origin+urlFor(k,l)+'</loc></url>')).join('')+'</urlset>');
 write('robots.txt','User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\nSitemap: '+origin+'/sitemap.xml\n');

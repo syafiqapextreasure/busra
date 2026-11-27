@@ -1,0 +1,326 @@
+[
+  {
+    "id": "office",
+    "slug": [
+      "ubah-suai-pejabat-terbuka",
+      "open-plan-office-renovation"
+    ],
+    "topic": [
+      "Ubah suai pejabat",
+      "Office renovation"
+    ],
+    "title": [
+      "Dari pejabat kosong ke ruang kerja terbuka",
+      "From an empty office to an open workspace"
+    ],
+    "service": "construction",
+    "hero": "blog/office-finished",
+    "alt": [
+      "Laluan berlantaikan kemasan kayu di antara bilik mesyuarat berkaca",
+      "Timber-look walkway between glazed meeting rooms"
+    ],
+    "summary": [
+      "Bagaimana membahagikan pejabat tanpa menghalang cahaya dan laluan? Mulakan dengan perjalanan orang dari pintu masuk ke meja kerja.",
+      "How do you divide an office while keeping daylight and circulation? Start by tracing the route from the entrance to each desk."
+    ],
+    "head": [
+      "Sebelum kerja bermula",
+      "Before work begins"
+    ],
+    "body": [
+      "Dalam contoh rekaan ini, tingkap tertumpu di hujung ruang. Jika bilik mesyuarat berdinding penuh dibina di hadapannya, meja di tengah akan bergantung pada lampu sepanjang hari. Cuba dua pelan di atas kertas. Pada setiap pelan, lukis laluan tetamu ke bilik mesyuarat dan laluan staf ke meja. Tandakan tempat kedua-duanya bersilang.",
+      "In this illustrated layout, the windows sit at the far end. Putting a solid meeting room wall across them would leave the middle desks dependent on artificial light. Sketch two arrangements. On each, trace a visitor’s route to the meeting room and a staff member’s route to a desk. Mark where those paths cross."
+    ],
+    "figures": [
+      [
+        "blog/office-fitout",
+        "Kedudukan bingkai sebelum ruang siap",
+        "Partition frames during fit-out"
+      ],
+      [
+        "blog/office-floor",
+        "Arah lantai mengikut laluan utama",
+        "Floorboards follow the main circulation route"
+      ]
+    ],
+    "diagram": [
+      "Tiga ujian untuk satu pelan",
+      "Three tests for one floor plan"
+    ],
+    "steps": [
+      [
+        "route",
+        "Laluan",
+        "Walk",
+        "Bayangkan dua orang berselisih ketika pintu bilik dibuka.",
+        "Trace where two people would pass an open meeting room door."
+      ],
+      [
+        "sun",
+        "Cahaya",
+        "Light",
+        "Jejaki cahaya dari tingkap ke meja paling jauh.",
+        "Trace daylight from the window to the furthest desk."
+      ],
+      [
+        "eye",
+        "Privasi",
+        "Privacy",
+        "Semak pandangan dari laluan ke skrin semasa orang duduk.",
+        "Check what someone in the corridor can see on a seated colleague’s screen."
+      ]
+    ],
+    "endHead": [
+      "Hasil akhir",
+      "The finished layout"
+    ],
+    "end": [
+      "Partisi kaca memisahkan perbincangan daripada laluan sambil mengekalkan pandangan ke tingkap. Jalur kabur pada paras pandangan memberi privasi tambahan. Sebelum memilih kemasan, tanya pemasang tentang bunyi yang boleh tembus melalui pintu dan celah siling. Dalam bilik kosong, tandakan kedudukan pintu dengan pita dan cuba laluan sebenar.",
+      "Glazed rooms give meetings a defined space while retaining a view through to the windows. A frosted band adds visual privacy. Before choosing finishes, ask how sound can travel through the door and above the ceiling. Tape out the door position in the empty room and walk the proposed route."
+    ],
+    "source": "hypro"
+  },
+  {
+    "id": "track",
+    "slug": [
+      "pintu-gelongsor-berat-rel-roda",
+      "sticking-sliding-door-track-or-rollers"
+    ],
+    "topic": [
+      "Penjagaan pintu",
+      "Door care"
+    ],
+    "title": [
+      "Pintu gelangsar berat: rel kotor atau roda haus?",
+      "Sliding door hard to move? Check the track and rollers"
+    ],
+    "service": "aluminium-doors",
+    "hero": "doors-detail",
+    "alt": [
+      "Butiran bingkai dan rel bawah pintu aluminium",
+      "Detail of the lower frame and sliding door track"
+    ],
+    "summary": [
+      "Jika pintu mula tersekat, perhatikan tempat ia berhenti. Pasir pada satu titik dan roda yang bermasalah boleh terasa berbeza.",
+      "When a sliding door sticks, notice where it catches. Grit in one spot can feel different from a roller that drags along the whole track."
+    ],
+    "head": [
+      "Pintu sliding susah dibuka? Periksa corak geseran",
+      "Find the pattern before ordering parts"
+    ],
+    "body": [
+      "Dengan daun pintu masih pada rel, buka perlahan dari dalam. Jika ia tersangkut di tempat yang sama, lihat sama ada ada batu kecil atau kotoran. Vakum rel yang mudah dicapai dan lap dengan kain lembap. Cuba sekali lagi selepas kering. Jika bunyi geseran berterusan sepanjang laluan, rakam bunyinya untuk pemasang.",
+      "With the panel still on its track, open it slowly from inside. If it catches in the same spot, look for a pebble or packed dirt. Vacuum the accessible track and wipe it with a damp cloth. Try again once dry. If it grinds along the full travel, record the sound for the installer."
+    ],
+    "figures": [
+      [
+        "doors-option-2",
+        "Perhatikan titik panel mula tersekat",
+        "Note where the sliding panel starts to catch"
+      ],
+      [
+        "home-inset",
+        "Periksa rel bawah yang boleh dicapai",
+        "Inspect the accessible lower track"
+      ]
+    ],
+    "diagram": [
+      "Padankan gejala dengan tindakan",
+      "Match the symptom to the next step"
+    ],
+    "steps": [
+      [
+        "map-pin",
+        "Satu titik",
+        "One spot",
+        "Bersihkan rel dan uji pada titik yang sama.",
+        "Clean the track and retest at that spot."
+      ],
+      [
+        "audio-lines",
+        "Sepanjang rel",
+        "Entire track",
+        "Geseran berterusan? Minta pemeriksaan roda dan rel.",
+        "Persistent grinding? Ask for a roller and track inspection."
+      ],
+      [
+        "octagon-pause",
+        "Panel senget",
+        "Tilted panel",
+        "Hentikan penggunaan dan aturkan pemeriksaan.",
+        "Stop using the door and arrange an inspection."
+      ]
+    ],
+    "endHead": [
+      "Maklumat untuk pemasang",
+      "What the installer needs"
+    ],
+    "end": [
+      "Hantar video pendek dari sisi, gambar rel bawah dan bilangan panel. Nyatakan sama ada masalah datang selepas kerja berdebu atau berlaku sedikit demi sedikit. Jangan angkat daun kaca atau laras skru roda untuk mencuba nasib. Jika panel longgar, jauhkan orang daripada laluan sehingga ia diperiksa.",
+      "Send a short side-on video, a photo of the lower track and the number of panels. Mention whether the problem followed dusty work or developed gradually. Leave glass-panel removal and roller adjustments to the installer. Keep the opening clear if the panel feels loose."
+    ],
+    "source": "rollers"
+  },
+  {
+    "id": "partition",
+    "slug": [
+      "kos-partisi-kaca-pejabat",
+      "office-glass-partition-cost"
+    ],
+    "topic": [
+      "Partisi pejabat",
+      "Office partitions"
+    ],
+    "title": [
+      "Berapakah kos partisi kaca pejabat?",
+      "What affects the cost of an office glass partition?"
+    ],
+    "service": "construction",
+    "hero": "construction-office",
+    "alt": [
+      "Ruang pejabat dengan sekatan kaca",
+      "Office interior with glazed partitions"
+    ],
+    "summary": [
+      "Apabila membandingkan harga partisi kaca pejabat, kadar sekaki persegi hanya berguna jika kedua-dua sebut harga merangkumi kaca, pintu, perkakasan dan pemasangan yang setara.",
+      "A price per square foot only helps when both quotes cover comparable glass, doors, hardware and installation."
+    ],
+    "head": [
+      "Mulakan dengan satu lukisan ringkas",
+      "Start with a simple elevation"
+    ],
+    "body": [
+      "Lukis dinding seolah-olah anda sedang berdiri di hadapannya. Catat lebar dan tinggi, tandakan pintu serta panel tetap. Contohnya, ruang 4 m × 2.7 m memberi keluasan kasar 10.8 m². Pintu di dalam bukaan itu sudah termasuk dalam ukuran kasar. Tanya sama ada pembekal mengasingkan harga pintu supaya anda tidak mengiranya dua kali.",
+      "Draw the wall as you would see it standing in front of it. Mark its width, height, door and fixed panels. A 4 m wide opening at 2.7 m high has a gross area of 10.8 m². A door within that opening is already in the gross measurement. Ask how the supplier deducts or prices the door so you don’t count it twice."
+    ],
+    "figures": [
+      [
+        "blog/office-fitout",
+        "Bezakan panel tetap daripada bukaan pintu",
+        "Distinguish fixed panels from the door opening"
+      ],
+      [
+        "shopfront-detail",
+        "Asingkan komponen pintu daripada harga panel",
+        "Separate door hardware from the panel price"
+      ]
+    ],
+    "diagram": [
+      "Pecahkan sebut harga kepada tiga bahagian",
+      "Read the quote in three parts"
+    ],
+    "steps": [
+      [
+        "ruler",
+        "Panel",
+        "Panels",
+        "Catat ukuran, jenis kaca, bingkai dan filem kabur.",
+        "List dimensions, glass, framing and frosted film."
+      ],
+      [
+        "door-open",
+        "Pintu",
+        "Doors",
+        "Kira daun, pemegang, kunci dan penutup pintu.",
+        "Count leaves, handles, locks and closers."
+      ],
+      [
+        "wrench",
+        "Kerja tapak",
+        "Site work",
+        "Semak penghantaran, pemasangan dan pembaikan kemasan.",
+        "Check delivery, installation and making good."
+      ]
+    ],
+    "endHead": [
+      "Bandingkan jumlah untuk skop yang sama",
+      "Compare totals for the same scope"
+    ],
+    "end": [
+      "Untuk projek Lembah Klang, sertakan aras pejabat, waktu kerja yang dibenarkan dan akses lif barang. Jika privasi bunyi penting, minta spesifikasi bagi keseluruhan sistem termasuk pintu. Simpan semua pengecualian bersebelahan harga. Tawaran yang nampak murah mungkin belum memasukkan filem kabur atau perkakasan.",
+      "For a Klang Valley office, include the floor level, permitted working hours and goods-lift access. If speech privacy matters, ask for a specification covering the entire system including the door. Put exclusions beside each total. A lower figure may leave out frosting or hardware."
+    ],
+    "source": "hypro"
+  },
+  {
+    "id": "kitchen-window",
+    "slug": [
+      "pilih-tingkap-dapur-aluminium",
+      "choose-an-aluminium-kitchen-window"
+    ],
+    "topic": [
+      "Tingkap dapur",
+      "Kitchen windows"
+    ],
+    "title": [
+      "Tingkap dapur: pilih casement, gelangsar atau lipat?",
+      "Casement, sliding or folding windows for the kitchen?"
+    ],
+    "service": "aluminium-windows",
+    "hero": "windows-option-4",
+    "alt": [
+      "Tingkap lipat berbingkai hitam di atas sinki dapur",
+      "Black folding kitchen window above the sink"
+    ],
+    "summary": [
+      "Uji jarak pili, jangkauan tangan dan ruang di luar sebelum memilih jenis bukaan untuk tingkap di atas sinki.",
+      "Check tap clearance, reach and the space outside before choosing how your over-sink window should open."
+    ],
+    "head": [
+      "Uji dari tempat anda membasuh pinggan",
+      "Test from where you stand at the sink"
+    ],
+    "body": [
+      "Berdiri seperti biasa di depan sinki. Bolehkah anda mencapai pemegang tanpa bersandar pada permukaan basah? Ambil gambar dari sisi untuk menunjukkan tinggi pili dan kedalaman kaunter. Di luar, cari halangan seperti jeriji, paip atau laluan sempit. Ukuran lebar tingkap sahaja tidak akan menunjukkan halangan ini.",
+      "Stand where you normally wash up. Can you reach the handle without leaning on a wet counter? Take a side photo showing tap height and counter depth. Outside, look for a grille, pipe or narrow walkway. Window width alone won’t reveal any of those obstructions."
+    ],
+    "figures": [
+      [
+        "windows-option-1",
+        "Daun casement memerlukan ruang ayunan",
+        "A casement sash needs room to swing"
+      ],
+      [
+        "windows-option-2",
+        "Panel gelangsar bergerak di sepanjang rel",
+        "Sliding panels travel along a track"
+      ]
+    ],
+    "diagram": [
+      "Pilih mengikut ruang bukaan",
+      "Match the opening to the space"
+    ],
+    "steps": [
+      [
+        "corner-up-right",
+        "Casement",
+        "Casement",
+        "Sesuai jika ayunan di luar bebas daripada halangan.",
+        "Consider it when the outward swing is clear."
+      ],
+      [
+        "move-horizontal",
+        "Gelangsar",
+        "Sliding",
+        "Sesuai untuk laluan luar yang sempit. Sebahagian bukaan dilitupi panel.",
+        "Useful by a narrow outside path. Panels overlap part of the opening."
+      ],
+      [
+        "panels-left-bottom",
+        "Lipat",
+        "Folding",
+        "Tentukan di mana daun berlipat dan tempat jejaring ketika dibuka.",
+        "Locate the folded stack and check where the mesh sits when open."
+      ]
+    ],
+    "endHead": [
+      "Apa yang perlu dikongsi",
+      "What to send for a layout check"
+    ],
+    "end": [
+      "Sertakan gambar dari dalam dan luar, kedudukan pemegang dan jenis jejaring yang anda mahu. Untuk Folding Window 3 in 1, minta pemasang tunjukkan urutan buka kaca dan security mesh. Cuba gerakan itu dari belakang kaunter sebelum memuktamadkan arah lipatan.",
+      "Send indoor and outdoor views, the handle position and your mesh preference. For a Folding Window 3 in 1, ask to see the sequence for opening the glass and security mesh. Try that movement from behind a counter before settling on the folding direction."
+    ],
+    "source": "windows"
+  }
+]

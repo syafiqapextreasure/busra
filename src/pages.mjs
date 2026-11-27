@@ -246,6 +246,11 @@ const constructionServices = c => `<section class="trade-section" id="subservice
   <h2 class="in-heading">${c.t('Jenis kerja pembinaan','Construction services')}</h2>
   <div class="trade-grid">${constructionTrades.map(([id,ms,en,msBody,enBody,msAlt,enAlt]) => `<article>${c.img('construction-'+id,c.t(msAlt,enAlt),'trade-photo')}<div><h3>${c.t(ms,en)}</h3><p>${c.t(msBody,enBody)}</p></div></article>`).join('')}</div>
   </div></section>`;
+function relatedGuides(c,key) {
+  const guides=c.articles.filter(article=>article.service===key);
+  if (!guides.length) return '';
+  return `<nav class="product-reading" aria-label="${c.t('Panduan berkaitan','Related guides')}"><strong>${c.t('Panduan berkaitan','Related guides')}</strong>${guides.map(article=>`<a href="${c.url('article-'+article.id)}">${c.t(...article.title)}</a>`).join('')}</nav>`;
+}
 const productPage = (c,key) => {
   const product = products[key];
   const title = c.lang === 'ms' ? product.title[1] : product.title[0];
@@ -266,7 +271,7 @@ const productPage = (c,key) => {
     ${figure(c,slug + '-detail',c.t('Perincian pilihan untuk ' + name(c,key), name(c,key) + ' detail'))}
   </section>
   ${process(c, construction)}
-  <section class="in-wrap in-section in-faq-inline">${heading(c.t('Soalan Lazim', 'Frequently Asked Questions'))}<div>${faqItems(c,product.faq,construction ? [0] : [])}</div></section>
+  <section class="in-wrap in-section in-faq-inline">${heading(c.t('Soalan Lazim', 'Frequently Asked Questions'))}<div>${faqItems(c,product.faq,construction ? [0] : [])}</div>${relatedGuides(c,key)}</section>
   <section class="in-wrap in-section in-related">${heading(c.t('Perkhidmatan berkaitan', 'Related services'))}
     <div class="in-grid in-grid-three">${product.related.map(item => serviceCard(c,item)).join('')}<aside class="in-related-aside"><h3>${c.t('Ingin Minta Sebut Harga?', 'Looking for a Quote?')}</h3><p>${c.t('Hubungi kami untuk membincangkan keperluan ruang anda.', 'Tell us what you need for your space.')}</p>${actions(c,key)}</aside></div>
   </section></div>`;

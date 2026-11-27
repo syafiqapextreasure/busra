@@ -2,7 +2,7 @@ import {admin} from './admin.mjs';
 import {json,submitQuote,retryNotifications} from './quotes.mjs';
 import {recordClick} from './metrics.mjs';
 
-const placeholder='https://busra.invalid';
+import {publicOrigin} from '../src/public-origin.mjs';
 
 export async function renderPublic(request,env,preview=false) {
   const url=new URL(request.url);
@@ -12,8 +12,9 @@ export async function renderPublic(request,env,preview=false) {
   if (!original.ok || request.method==='HEAD') return original;
   const html=type.includes('text/html');
   if (!html && !['/robots.txt','/sitemap.xml'].includes(url.pathname)) return original;
-  const productionOrigin=env.SITE_URL?new URL(env.SITE_URL).origin:url.origin;
-  const document=(await original.text()).replaceAll(placeholder,productionOrigin);
+  const productionOrigin=env.SITE_URL?new URL(env.SITE_URL).origin:
+    (url.hostname==='busra.mail-82f.workers.dev' ? url.origin : publicOrigin);
+  const document=(await original.text()).replaceAll(publicOrigin,productionOrigin);
   const headers=new Headers(original.headers);
   for (const key of ['etag','last-modified','content-length','content-encoding']) headers.delete(key);
   headers.set('referrer-policy','strict-origin-when-cross-origin');
