@@ -44,3 +44,5 @@
 @media (prefers-reduced-motion:reduce) {
  *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; animation:none!important; }
 }
+
+.quote-receipt{align-self:start;padding:1rem;border:1px solid var(--border);border-radius:.4rem;background:#fff}.quote-receipt p{margin:.7rem 0}.quote-receipt .btn{margin:.25rem .5rem .25rem 0}.quote-receipt button{border:0}

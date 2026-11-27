@@ -425,13 +425,13 @@ const contactPage = c => {
   <section class="in-wrap in-section in-grid in-grid-two in-contact-form">
     ${figure(c,'home-hero',overviewAlt(c))}
     <div class="in-tint">${heading(c.t('Ceritakan projek anda','Tell us about your project'))}
-    <form data-quote method="post" action="/api/quotes" enctype="multipart/form-data">
+    <form data-quote data-whatsapp="${c.wa}" method="post" action="/api/quotes" enctype="multipart/form-data">
       <input name="service" type="hidden" value="other">
       ${field(c.t('Nama Penuh','Full Name') + ' *','<input name="name" autocomplete="name" maxlength="120" required>')}
       ${field(c.t('No. Telefon','Phone Number') + ' *','<input type="tel" name="phone" autocomplete="tel" maxlength="40" required>')}
       ${field(c.t('Lokasi Projek','Project Location') + ' *','<input name="area" maxlength="160" required>')}
       ${field(c.t('Ringkasan Keperluan','Project Summary') + ' *','<textarea name="description" rows="3" maxlength="3000" required></textarea>')}
-      ${submit(c,quoteLabel(c))}
+      ${submit(c,c.t('Teruskan ke WhatsApp','Continue to WhatsApp'))}
       <p class="in-small">${c.t('Maklumat anda digunakan untuk mengurus pertanyaan ini. Baca','We use your information to manage this enquiry. Read the')} <a href="${c.url('privacy')}">${privacyLabel(c)}</a>.</p>
     </form></div>
   </section>
@@ -450,7 +450,7 @@ const quotePage = c => {
   return `<div class="inner-page in-quote">
     ${hero(c,{title:label,lead:t('Kongsi keperluan anda supaya kami dapat membuat semakan awal.','Share what you need so we can make an initial review.'),body:t('Medan bertanda * diperlukan.','Fields marked * are required.'),style:'in-compact-hero',file:'quote-hero',alt:t('Peralatan bengkel di atas bingkai aluminium','Workshop tools on an aluminium frame'),eyebrow:label,showActions:false,showInfo:false})}
     <div class="in-wrap in-section in-quote-layout">
-      <form data-quote method="post" action="/api/quotes" enctype="multipart/form-data">
+      <form data-quote data-whatsapp="${c.wa}" method="post" action="/api/quotes" enctype="multipart/form-data">
         <fieldset><legend>${heading(t('Maklumat Anda','Your Details'))}</legend><div class="in-fields">
           ${field(t('Nama Penuh','Full Name') + ' *','<input name="name" autocomplete="name" maxlength="120" required>')}
           ${field(t('No. Telefon','Phone Number') + ' *','<input type="tel" name="phone" autocomplete="tel" maxlength="40" required>')}
@@ -469,12 +469,12 @@ const quotePage = c => {
             ${icon(c,'image')}<p>${t('Muat naik gambar rujukan projek anda','Upload reference photos for your project')}</p>
             <input class="in-photo-input" name="photos" id="quote-photos" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-describedby="photo-limit photo-selection">
             <label for="quote-photos" class="in-button in-outline">${t('Pilih Gambar','Choose Photos')}</label>
-            <p class="in-small" id="photo-limit">${t('Maksimum 5 fail · JPG, PNG, WebP · 5 MB setiap fail','Up to 5 files · JPG, PNG, WebP · 5 MB per file')}</p>
+            <p class="in-small" id="photo-limit">${t('Maksimum 5 fail · JPG, PNG, WebP · 5 MB setiap fail. Gambar disimpan bersama permintaan. Untuk menghantarnya dalam chat, gunakan pilihan kongsi pada peranti yang menyokongnya atau lampirkan gambar dalam WhatsApp.','Up to 5 files · JPG, PNG, WebP · 5 MB per file. Photos are saved with your enquiry. To send them in chat, use the sharing option on supported devices or attach them in WhatsApp.')}</p>
             <p class="in-small" id="photo-selection" aria-live="polite"></p>
           </div>
         </fieldset>
         <p class="in-small">${t('Maklumat anda digunakan untuk mengurus pertanyaan ini.','We use your information to manage this enquiry.')} <a href="${c.url('privacy')}">${t('Baca Notis Privasi','Read the Privacy Notice')}</a></p>
-        ${submit(c,t('Hantar Permintaan','Send Request'))}
+        ${submit(c,t('Teruskan ke WhatsApp','Continue to WhatsApp'))}
       </form>
       <aside class="in-tint in-quote-aside">
         ${heading(t('Apa yang berlaku seterusnya?','What happens next?'))}
