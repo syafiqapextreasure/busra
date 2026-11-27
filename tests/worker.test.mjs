@@ -51,6 +51,38 @@ test('two concurrent retries save one quote and remove duplicate uploads',async(
   assert.deepEqual(await responses[0].json(),await responses[1].json());
   assert.equal(h.objects.size,1);
 });
+test('WhatsApp receives one stable, expiring link per uploaded photo',async()=>{
+  const h=fixture(),form=sample();form.set('photoLinks','whatsapp');
+  photo(form);photo(form,[255,216,255,0,0,0,0,0,0,0,0,0]);
+  const [first,retry]=await Promise.all([h.submit(form),h.submit(form)]);
+  const receipt=await first.json();
+  assert.deepEqual(receipt,await retry.json());
+  assert.deepEqual(receipt,await (await h.submit(form)).json());
+  const [png,jpg]=receipt.photoLinks;
+  assert.equal(receipt.photoLinks.length,2);
+  for(const [index,path] of receipt.photoLinks.entries()){
+    const response=await h.fetch(path);
+    assert.equal(response.status,200);
+    assert.equal(response.headers.get('content-type'),['image/png','image/jpeg'][index]);
+    assert.deepEqual(await response.arrayBuffer(),await form.getAll('photos')[index].arrayBuffer());
+    assert.match(response.headers.get('cache-control'),/no-store/);
+  }
+  assert.notEqual(png.split('.').shift(),jpg.split('.').shift());
+  assert.equal((await h.fetch(png,{method:'HEAD'})).status,200);
+  const expiredKey=png.replace(/\d{10}-/,'1000000000-');
+  const storedKey='shared-photo/'+expiredKey.split('/').pop();
+  await h.env.PHOTOS.put(storedKey,await form.get('photos').arrayBuffer());
+  assert.equal((await h.fetch(expiredKey)).status,404);
+  assert.equal((await h.fetch(png.replace(/\d{10}-/,'3000000000-'))).status,404);
+  assert.equal((await h.fetch(png,{method:'POST'})).status,405);
+});
+test('enquiries without shared uploads return no photo links',async()=>{
+  const h=fixture(),legacy=sample(),plain=sample();photo(legacy);
+  assert.deepEqual((await (await h.submit(legacy)).json()).photoLinks,[]);
+  const key=[...h.objects.keys()][0];
+  assert.equal((await h.fetch('/api/photos/'+key)).status,404);
+  assert.deepEqual((await (await h.submit(plain)).json()).photoLinks,[]);
+});
 test('invalid fields and unsupported uploads return field errors',async()=>{
   const h=fixture(),f=sample(); f.set('phone','1');f.delete('area');photo(f,[1,1,1,1,1,1,1,1,1,1,1,1]);
   const r=await h.submit(f);assert.equal(r.status,400);

@@ -1,5 +1,6 @@
 import {admin} from './admin.mjs';
 import {json,submitQuote,retryNotifications} from './quotes.mjs';
+import {openPhoto} from './photo-links.mjs';
 import {recordClick} from './metrics.mjs';
 
 import {publicOrigin} from '../src/public-origin.mjs';
@@ -48,6 +49,7 @@ export default {
     const path=new URL(request.url).pathname;
     try {
       if (path==='/api/quotes' || path==='/api/quotes/') return await submitQuote(request,env,ctx);
+      if (path.startsWith('/api/photos/')) return await openPhoto(request,env,path.slice('/api/photos/'.length));
       if (path==='/api/contact-click') return await recordClick(request,env);
       if (path.startsWith('/api/')) return json({error:'not_found'},404);
       if (path==='/admin' || path.startsWith('/admin/')) return await admin(request,env,renderPublic);

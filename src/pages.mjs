@@ -451,6 +451,7 @@ const quotePage = c => {
     ${hero(c,{title:label,lead:t('Kongsi keperluan anda supaya kami dapat membuat semakan awal.','Share what you need so we can make an initial review.'),body:t('Medan bertanda * diperlukan.','Fields marked * are required.'),style:'in-compact-hero',file:'quote-hero',alt:t('Peralatan bengkel di atas bingkai aluminium','Workshop tools on an aluminium frame'),eyebrow:label,showActions:false,showInfo:false})}
     <div class="in-wrap in-section in-quote-layout">
       <form data-quote data-whatsapp="${c.wa}" method="post" action="/api/quotes" enctype="multipart/form-data">
+        <input type="hidden" name="photoLinks" value="whatsapp">
         <fieldset><legend>${heading(t('Maklumat Anda','Your Details'))}</legend><div class="in-fields">
           ${field(t('Nama Penuh','Full Name') + ' *','<input name="name" autocomplete="name" maxlength="120" required>')}
           ${field(t('No. Telefon','Phone Number') + ' *','<input type="tel" name="phone" autocomplete="tel" maxlength="40" required>')}
@@ -469,7 +470,7 @@ const quotePage = c => {
             ${icon(c,'image')}<p>${t('Muat naik gambar rujukan projek anda','Upload reference photos for your project')}</p>
             <input class="in-photo-input" name="photos" id="quote-photos" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-describedby="photo-limit photo-selection">
             <label for="quote-photos" class="in-button in-outline">${t('Pilih Gambar','Choose Photos')}</label>
-            <p class="in-small" id="photo-limit">${t('Maksimum 5 fail · JPG, PNG, WebP · 5 MB setiap fail. Gambar disimpan bersama permintaan. Untuk menghantarnya dalam chat, gunakan pilihan kongsi pada peranti yang menyokongnya atau lampirkan gambar dalam WhatsApp.','Up to 5 files · JPG, PNG, WebP · 5 MB per file. Photos are saved with your enquiry. To send them in chat, use the sharing option on supported devices or attach them in WhatsApp.')}</p>
+            <p class="in-small" id="photo-limit">${t('Maksimum 5 fail · JPG, PNG, WebP · 5 MB setiap fail. Setiap gambar disertakan sebagai pautan dalam mesej WhatsApp. Sesiapa yang menerima pautan itu boleh melihat gambar selama 7 hari.','Up to 5 files · JPG, PNG, WebP · 5 MB per file. Each photo is included as a link in your WhatsApp message. Anyone who receives a link can view that photo for 7 days.')}</p>
             <p class="in-small" id="photo-selection" aria-live="polite"></p>
           </div>
         </fieldset>
@@ -513,7 +514,7 @@ const confirmationPage = c => {
 const privacySections = [
   ['information','Maklumat yang Dikongsi','Information You Share','Nama, nombor telefon, e-mel jika diberikan, lokasi projek, ringkasan keperluan dan gambar yang dimuat naik.','Your name, phone number, email if provided, project location, project summary and any uploaded photos.'],
   ['purpose','Tujuan Penggunaan','How We Use Information','Maklumat digunakan untuk mengurus pertanyaan, memahami keperluan projek dan menyediakan komunikasi berkaitan sebut harga.','We use the information to manage enquiries, understand project requirements and communicate about quotes.'],
-  ['access','Akses kepada Maklumat','Access to Information','Kakitangan BUSRA yang diberi akses boleh menyemak pertanyaan dan memuat turun gambar. Laman menggunakan pangkalan data Cloudflare D1 dan storan peribadi Cloudflare Workers KV. Pemberitahuan kakitangan, jika diaktifkan, mengandungi nombor rujukan pertanyaan sahaja.','Authorised BUSRA staff can review enquiries and download photos. This website uses Cloudflare D1 and private Cloudflare Workers KV storage. Staff alerts, when enabled, contain only the enquiry reference.'],
+  ['access','Akses kepada Maklumat','Access to Information','Kakitangan BUSRA yang diberi akses boleh menyemak pertanyaan dan memuat turun gambar. Jika anda memuat naik gambar untuk WhatsApp, sesiapa yang menerima pautannya boleh melihat gambar tersebut selama 7 hari. Laman menggunakan pangkalan data Cloudflare D1 dan storan peribadi Cloudflare Workers KV. Pemberitahuan kakitangan, jika diaktifkan, mengandungi nombor rujukan pertanyaan sahaja.','Authorised BUSRA staff can review enquiries and download photos. When you upload photos for WhatsApp, anyone who receives a photo link can view that image for 7 days. This website uses Cloudflare D1 and private Cloudflare Workers KV storage. Staff alerts, when enabled, contain only the enquiry reference.'],
   ['retention','Tempoh Penyimpanan','Retention','Tempoh simpanan dan kaedah pemadaman akan dinyatakan selepas dasar syarikat disahkan.','The notice will set out retention periods and deletion methods after the company confirms its policy.'],
   ['choices','Pilihan Anda','Your Choices','Hubungi kami untuk pertanyaan atau pembetulan maklumat yang telah dikongsi.','Contact us with questions or to correct information you shared.'],
   ['contact','Hubungi BUSRA','Contact BUSRA'],

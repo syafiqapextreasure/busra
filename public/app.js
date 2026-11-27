@@ -8,7 +8,7 @@ function setMenu(open){toggle.setAttribute('aria-expanded',String(open));nav.cla
 toggle?.addEventListener('click',()=>setMenu(toggle.getAttribute('aria-expanded')!=='true'));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&nav.classList.contains('open')){setMenu(false);toggle.focus()}});
 document.addEventListener('click',e=>{if(!e.target.closest('.top')&&nav.classList.contains('open'))setMenu(false)});
-function continueToWhatsApp(form, data, files, reference, service) {
+function continueToWhatsApp(form, data, photoLinks, reference, service) {
  const chat = new URL(form.dataset.whatsapp);
  const description = Array.from(String(data.get('description') || '').trim());
  const summary = description.length > 500 ? description.slice(0,500).join('')+'…' : description.join('');
@@ -17,7 +17,10 @@ function continueToWhatsApp(form, data, files, reference, service) {
   t('Rujukan','Reference')+' · '+reference,
   String(data.get('name')), service, String(data.get('area')), summary
  ].filter(Boolean);
- if(files.length) lines.push(t('Gambar dalam permintaan','Photos saved with enquiry')+' · '+files.length);
+ if(photoLinks.length) {
+  lines.push('',t('Gambar projek (pautan sah 7 hari)','Project photos (links valid for 7 days)'));
+  for(const path of photoLinks) lines.push(new URL(path, location.origin).href);
+ }
  const text = lines.join('\n');
  chat.searchParams.set('text', text);
 
@@ -36,22 +39,6 @@ function continueToWhatsApp(form, data, files, reference, service) {
  panel.append(heading,receipt,instructions,link);
  form.replaceWith(panel);
  heading.focus();
- const shareData={files,text};
- if(files.length && navigator.share && navigator.canShare?.(shareData)) {
-  instructions.textContent=t('Untuk berkongsi gambar, pilih WhatsApp dan kenalan BUSRA (019-727 5253). Anda juga boleh buka chat BUSRA terus untuk menghantar ringkasan.','To share your photos, choose WhatsApp and select BUSRA (019-727 5253). You can also open the BUSRA chat directly to send your summary.');
-  const share=document.createElement('button');
-  share.className='btn';
-  share.type='button';
-  share.textContent=t('Kongsi gambar','Share photos');
-  link.before(share);
-  share.addEventListener('click',async()=>{
-   try { await navigator.share(shareData); }
-   catch(error) {
-    if(error.name!=='AbortError') instructions.textContent=t('Buka chat BUSRA dan lampirkan gambar menggunakan ikon lampiran.','Open the BUSRA chat and add photos using the attachment button.');
-   }
-  });
-  return;
- }
  instructions.textContent=t('Tekan Hantar dalam WhatsApp untuk menghantar mesej.','Tap Send in WhatsApp to send your message.');
  location.assign(chat.href);
 }
@@ -76,7 +63,7 @@ document.querySelectorAll('form[data-quote]').forEach(form=>{
    }
    if(!/^BSS-\d{4}-[A-F0-9]{8}$/.test(result.reference))throw Error('Invalid response');
    try{sessionStorage.setItem('busra-latest-reference',result.reference)}catch{}
-   continueToWhatsApp(form,data,files,result.reference,service);
+   continueToWhatsApp(form,data,result.photoLinks || [],result.reference,service);
   }catch(err){status.textContent=err.message?.includes('019-')||err.message?.includes('attempts')||err.message?.includes('percubaan')?err.message:t('Gagal menghubungi pelayan. Butiran anda dikekalkan. Cuba lagi atau hubungi 019-727 5253.','Connection failed. Your details are still here. Retry or call 019-727 5253.');}
   finally{pending=false;button.disabled=false}
  });

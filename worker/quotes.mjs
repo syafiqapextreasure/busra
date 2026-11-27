@@ -1,3 +1,5 @@
+import {photoPaths,sharedPhotoKey} from './photo-links.mjs';
+
 export const json = (body, status = 200, extra = {}) => Response.json(body, {status, headers: {
   'cache-control':'no-store', 'x-content-type-options':'nosniff', ...extra
 }});
@@ -105,15 +107,17 @@ export async function submitQuote(request,env,ctx) {
   if (photos.length>5 || types.some(t=>!t)) fields.photos='invalid_photos';
   if (Object.keys(fields).length) return json({error:'validation',fields},400);
   if (photos.length && !env.PHOTOS) return json({error:'uploads_unavailable'},503);
-  const lookup = () => env.DB.prepare('SELECT reference FROM quotes WHERE request_id=?').bind(id).first();
+  const sharePhotos = form.get('photoLinks')==='whatsapp';
+  const receipt = (reference,keys,status=200) => json({reference,photoLinks:photoPaths(keys)},status);
+  const lookup = () => env.DB.prepare('SELECT reference,files FROM quotes WHERE request_id=?').bind(id).first();
   const existing = await lookup();
-  if (existing) return json({reference:existing.reference});
+  if (existing) return receipt(existing.reference,JSON.parse(existing.files));
   const uuid = crypto.randomUUID();
   const reference = 'BSS-'+new Date().getUTCFullYear()+'-'+uuid.slice(0,8).toUpperCase();
   const files = [];
   try {
     for (let i=0;i<photos.length;i++) {
-      const key=uuid+'/'+(i+1)+'.'+types[i];
+      const key=sharePhotos ? sharedPhotoKey(types[i]) : uuid+'/'+(i+1)+'.'+types[i];
       await env.PHOTOS.put(key,await photos[i].arrayBuffer());
       files.push(key);
     }
@@ -127,9 +131,9 @@ export async function submitQuote(request,env,ctx) {
     // A concurrent retry may already have committed. Keep files when commit outcome cannot be checked.
     const winner=await lookup();
     if (winner?.reference!==reference) await removeUploads(env.PHOTOS,files);
-    if (winner) return json({reference:winner.reference});
+    if (winner) return receipt(winner.reference,JSON.parse(winner.files));
     return json({error:'unavailable'},503);
   }
   ctx.waitUntil(notifyStaff(env,reference));
-  return json({reference},201);
+  return receipt(reference,files,201);
 }
