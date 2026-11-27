@@ -33,9 +33,9 @@
     ],
     "figures": [
       [
-        "doors-option-2",
-        "Panel gelangsar bertindih di tepi",
-        "Sliding panels overlap at the side"
+        "works/011",
+        "Foto tapak BUSRA. Dua bukaan bertemu di sudut patio. Tandakan laluan sebelum menentukan tempat panel berhenti.",
+        "BUSRA site photo. Two openings meet at a patio corner. Mark the walkway before choosing where the panels park."
       ],
       [
         "doors-option-4",
@@ -78,7 +78,7 @@
       "Untuk keluar masuk seorang demi seorang, fokus pada panel yang paling kerap digunakan dan kedudukan pemegang. Jika kerap membuka ruang ketika tetamu datang, minta lukisan yang menunjukkan semua panel dalam keadaan terbuka. Jika memilih kaca bersama security mesh, minta ukuran laluan ketika kedua-duanya dibuka.",
       "For everyday access, focus on the leaf you use most and where its handle ends up. If you often open the whole space for guests, ask for an all-panels-open drawing. If combining glass with security mesh, request the clear width with both systems open."
     ],
-    "source": "soliq"
+    "published": "2026-11-27"
   },
   {
     "id": "bath",
@@ -159,7 +159,7 @@
       "Kongsi lebar dan kedalaman, arah pancuran dan gambar laluan ke bilik air. Minta pemasang semak kedudukan sokongan, spesifikasi kaca dan kesesuaian lantai di tapak. Jika sukar masuk ke ruang yang ditanda pita, ubah pelan sekarang sebelum saiz kaca diputuskan.",
       "Share the width, depth, spray direction and a photo of the access route. Ask the installer to check support positions, glass specification and the finished floor on site. If stepping through the taped opening feels awkward, revise the layout before the glass size is final."
     ],
-    "source": "showers"
+    "published": "2026-11-27"
   },
   {
     "id": "cabinet",
@@ -178,8 +178,8 @@
     "service": "aluminium-cabinets",
     "hero": "cabinets-option-1",
     "alt": [
-      "Susunan kabinet aluminium di bawah dan di atas permukaan kerja",
-      "Kitchen cabinet runs above and below the worktop"
+      "Kabinet bawah aluminium berpintu kaca di bawah permukaan kerja batu",
+      "Glass-fronted aluminium base cabinets beneath a stone worktop"
     ],
     "summary": [
       "Asingkan panjang kabinet bawah, kabinet atas dan permukaan kerja. Kadar sekaki bagi satu baris jarang menerangkan harga seluruh dapur.",
@@ -240,7 +240,7 @@
       "Gunakan pelan dan ukuran yang sama untuk kedua-dua pembekal. Semak bahan badan kabinet, bahagian belakang, engsel, pemegang dan kerja membuka kabinet lama. Sebelum membandingkan jumlah, tanda setiap item sebagai termasuk, berasingan atau belum dinyatakan. Contoh ukuran di atas hanya menerangkan cara pengiraan.",
       "Give both suppliers the same drawing and dimensions. Check the carcass, back panel, hinges, pulls and removal of old units. Before comparing totals, mark each item as included, extra or unspecified. The example lengths above illustrate the calculation only."
     ],
-    "source": "cabinet"
+    "published": "2026-11-27"
   },
   {
     "id": "facade",
@@ -321,6 +321,6 @@
       "Kongsi keperluan kunci, pemegang, pelekat privasi dan penanggalan muka kedai lama. Bagi lot dalam pusat beli-belah, dapatkan syarat pengurusan tentang kerja selepas waktu operasi. Minta sebut harga menyenaraikan panel tetap, set pintu dan kerja tapak berasingan supaya pilihan mudah disemak.",
       "Share requirements for locks, handles, privacy film and removal of the previous frontage. For a mall unit, obtain management’s rules about after-hours work. Ask for separate lines for fixed panels, the door set and site work so you can review alternatives."
     ],
-    "source": "aiklian"
+    "published": "2026-11-27"
   }
 ]

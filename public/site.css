@@ -607,6 +607,10 @@ img[data-site-photo][data-loading] {
 .lead-stories,.more-stories{display:grid;gap:clamp(.65rem,1.6vw,1.5rem)}
 .lead-stories{grid-template-columns:repeat(3,minmax(0,1fr))}
 .more-stories{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:1.7rem;row-gap:1.6rem}
+.journal-card>div,.story-hero{position:relative}
+.journal-date{position:absolute;bottom:.65rem;right:.65rem;display:inline-flex;align-items:center;gap:.34em;padding:.32em .65em;border-radius:.32rem;background:#082d3ff2;color:#fff;border:1px solid #ffffff59;box-shadow:0 1px 5px #001e3038;font-size:clamp(.8rem,1.05vw,1rem);font-weight:650;line-height:1.35;white-space:nowrap;pointer-events:none;font-variant-numeric:tabular-nums}
+.journal-compare .journal-date{bottom:auto;top:.65rem}
+.feature-caption small{display:block;font-weight:550;color:#d6e7e2;line-height:1.35;margin-bottom:.18rem}
 .journal-card{display:block;text-decoration:none}.journal-card>div{aspect-ratio:1.38;overflow:hidden;border-radius:.25rem;background:#eaf1ed}
 .journal-card h3{margin:.55em 0 0;line-height:1.15;letter-spacing:-.03em;font-size:clamp(1.08rem,1.7vw,1.45rem)}
 .journal-card:hover h3,.journal-card:focus-visible h3{color:var(--green);text-decoration:underline;text-underline-offset:.15em}
@@ -627,7 +631,7 @@ img[data-site-photo][data-loading] {
 .guide-graphic ol{list-style:none;margin:.35rem 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);grid-column:1/-1;gap:1rem}
 .guide-graphic li{display:grid;align-content:start;grid-template-columns:1.3em 1fr;align-items:center;gap:.25em .45em;border-top:1px solid #c2d5ca;padding-top:.55em}
 .guide-graphic li .glyph{color:var(--green);width:1.15em;height:1.15em}.guide-graphic li span{grid-column:1/-1;font-size:.96rem;line-height:1.5}
-.story-reference{font-size:.87rem;color:#405968}.story-reference a{text-decoration:underline}.story-actions{display:flex;gap:.65rem 1.3rem;align-items:center;flex-wrap:wrap;margin-top:1rem}
+.story-actions{display:flex;gap:.65rem 1.3rem;align-items:center;flex-wrap:wrap;margin-top:1rem}
 .story-actions a{display:inline-flex;align-items:center;gap:.35rem;font-weight:700;color:var(--green);min-height:44px}.story-actions a+a{font-size:.93rem;font-weight:550;text-decoration:underline}
 @media (min-width:881px) and (max-width:1250px){.top .brand{width:12%;padding-right:1.4vw}.top{gap:1.4vw;padding-inline:2vw}.top nav{gap:1.35vw}.head-end{gap:1vw}}
 @media(max-width:880px){.more-stories{grid-template-columns:repeat(2,minmax(0,1fr))}.guide-graphic{grid-template-columns:1fr 35%}.journal-card h3{font-size:1.05rem}}

@@ -77,7 +77,7 @@ for(const lang of ['ms','en']){
   if(article){
     crumbSchema.itemListElement.splice(1,0,{'@type':'ListItem',position:2,name:'Blog',item:origin+url('blog')});
     crumbSchema.itemListElement[2].position=3;
-    dataGraph.push({'@context':'https://schema.org','@type':'BlogPosting','@id':origin+url(key)+'#article',mainEntityOfPage:origin+url(key),headline:pt,description:desc,inLanguage:lang,articleSection:t(...article.topic),image:origin+'/media/'+socialPhoto+'.webp',author:{'@type':'Organization',name:'BUSRA Solution & Services',url:origin+url('about')},publisher:{'@id':origin+'/#busra'}});
+    dataGraph.push({'@context':'https://schema.org','@type':'BlogPosting','@id':origin+url(key)+'#article',mainEntityOfPage:origin+url(key),headline:pt,description:desc,datePublished:article.published,inLanguage:lang,articleSection:t(...article.topic),image:origin+'/media/'+socialPhoto+'.webp',author:{'@type':'Organization',name:'BUSRA Solution & Services',url:origin+url('about')},publisher:{'@id':origin+'/#busra'}});
   }
   if(key==='faq')dataGraph.push(faqSchema(t));
   if(key!=='home')dataGraph.push(crumbSchema);

@@ -20,8 +20,8 @@
       "Timber-look walkway between glazed meeting rooms"
     ],
     "summary": [
-      "Bagaimana membahagikan pejabat tanpa menghalang cahaya dan laluan? Mulakan dengan perjalanan orang dari pintu masuk ke meja kerja.",
-      "How do you divide an office while keeping daylight and circulation? Start by tracing the route from the entrance to each desk."
+      "Contoh rekaan pejabat ini menunjukkan cara membahagikan ruang sambil mengekalkan cahaya dari tingkap dan laluan ke meja kerja.",
+      "This illustrated office plan shows how to divide an open floor while preserving window light and a clear route to each desk."
     ],
     "head": [
       "Sebelum kerja bermula",
@@ -78,7 +78,7 @@
       "Partisi kaca memisahkan perbincangan daripada laluan sambil mengekalkan pandangan ke tingkap. Jalur kabur pada paras pandangan memberi privasi tambahan. Sebelum memilih kemasan, tanya pemasang tentang bunyi yang boleh tembus melalui pintu dan celah siling. Dalam bilik kosong, tandakan kedudukan pintu dengan pita dan cuba laluan sebenar.",
       "Glazed rooms give meetings a defined space while retaining a view through to the windows. A frosted band adds visual privacy. Before choosing finishes, ask how sound can travel through the door and above the ceiling. Tape out the door position in the empty room and walk the proposed route."
     ],
-    "source": "hypro"
+    "published": "2026-11-27"
   },
   {
     "id": "track",
@@ -159,7 +159,7 @@
       "Hantar video pendek dari sisi, gambar rel bawah dan bilangan panel. Nyatakan sama ada masalah datang selepas kerja berdebu atau berlaku sedikit demi sedikit. Jangan angkat daun kaca atau laras skru roda untuk mencuba nasib. Jika panel longgar, jauhkan orang daripada laluan sehingga ia diperiksa.",
       "Send a short side-on video, a photo of the lower track and the number of panels. Mention whether the problem followed dusty work or developed gradually. Leave glass-panel removal and roller adjustments to the installer. Keep the opening clear if the panel feels loose."
     ],
-    "source": "rollers"
+    "published": "2026-11-27"
   },
   {
     "id": "partition",
@@ -172,7 +172,7 @@
       "Office partitions"
     ],
     "title": [
-      "Berapakah kos partisi kaca pejabat?",
+      "Apa yang menentukan kos partisi kaca pejabat?",
       "What affects the cost of an office glass partition?"
     ],
     "service": "construction",
@@ -240,7 +240,7 @@
       "Untuk projek Lembah Klang, sertakan aras pejabat, waktu kerja yang dibenarkan dan akses lif barang. Jika privasi bunyi penting, minta spesifikasi bagi keseluruhan sistem termasuk pintu. Simpan semua pengecualian bersebelahan harga. Tawaran yang nampak murah mungkin belum memasukkan filem kabur atau perkakasan.",
       "For a Klang Valley office, include the floor level, permitted working hours and goods-lift access. If speech privacy matters, ask for a specification covering the entire system including the door. Put exclusions beside each total. A lower figure may leave out frosting or hardware."
     ],
-    "source": "hypro"
+    "published": "2026-11-27"
   },
   {
     "id": "kitchen-window",
@@ -276,9 +276,9 @@
     ],
     "figures": [
       [
-        "windows-option-1",
-        "Daun casement memerlukan ruang ayunan",
-        "A casement sash needs room to swing"
+        "works/181",
+        "Foto tapak BUSRA. Panel jejaring dibuka di atas sinki. Perhatikan kedudukan pili di bawah bingkai.",
+        "BUSRA site photo. The mesh panel opens above the sink. Notice the tap directly below the frame."
       ],
       [
         "windows-option-2",
@@ -321,6 +321,6 @@
       "Sertakan gambar dari dalam dan luar, kedudukan pemegang dan jenis jejaring yang anda mahu. Untuk Folding Window 3 in 1, minta pemasang tunjukkan urutan buka kaca dan security mesh. Cuba gerakan itu dari belakang kaunter sebelum memuktamadkan arah lipatan.",
       "Send indoor and outdoor views, the handle position and your mesh preference. For a Folding Window 3 in 1, ask to see the sequence for opening the glass and security mesh. Try that movement from behind a counter before settling on the folding direction."
     ],
-    "source": "windows"
+    "published": "2026-11-27"
   }
 ]
