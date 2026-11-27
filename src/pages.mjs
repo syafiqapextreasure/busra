@@ -1,4 +1,5 @@
 import {worksPage} from './works.mjs';
+import {registrationDetails} from './registration.mjs';
 
 const products = {
   'aluminium-doors': {
@@ -235,6 +236,16 @@ const serviceCard = (c, key, full = false) => card(c, {
 const cta = (c, title, description, { key, dark = false, centered = false, includeWa = true } = {}) => `<section class="${dark ? 'in-band' : ''}"><div class="in-wrap in-cta${centered ? ' in-centered' : ''}"><div>${heading(title)}${description ? `<p>${description}</p>` : ''}</div>${includeWa ? actions(c,key,dark) : quoteButton(c,key)}</div></section>`;
 const iconCards = (c, items) => `<div class="in-grid in-grid-three">${items.map(([ms,en,bodyMs,bodyEn,symbol]) => `<article class="in-card in-icon-card">${icon(c,symbol)}<h3>${c.t(ms,en)}</h3><p>${c.t(bodyMs,bodyEn)}</p></article>`).join('')}</div>`;
 const chips = (c, items) => `<div class="in-chips" role="group" aria-label="${c.t('Tapis mengikut kategori', 'Filter by category')}">${items.map(([value,ms,en],i) => `<button type="button" aria-pressed="${i === 0}" data-filter="${value}">${c.t(ms,en)}</button>`).join('')}</div>`;
+const constructionTrades = [
+  ['office','Ubah suai pejabat','Office renovation','Susun semula ruang kerja dengan partisi kaca, bilik mesyuarat dan kemasan lantai mengikut cara pasukan anda bekerja.','Adapt the workplace to your team with glazed partitions, meeting rooms and new floor finishes.','Partisi kaca sedang dipasang di ruang pejabat','Glazed partitions in an office under renovation'],
+  ['maintenance','Penyelenggaraan rumah','Home maintenance','Baiki pintu yang sukar ditutup, laraskan tingkap dan ganti kelengkapan yang haus supaya ruang rumah mudah digunakan setiap hari.','Ease sticking doors, adjust windows and replace worn fittings to keep your home working well day to day.','Pelarasan kelengkapan tingkap aluminium di rumah','Adjusting an aluminium window fitting at home'],
+  ['structural','Kerja struktur','Structural works','Bincangkan kerja tetulang, acuan dan konkrit berdasarkan lukisan struktur, keadaan tapak dan skop projek.','Discuss reinforcement, formwork and concrete work against the structural drawings, site conditions and project scope.','Tetulang keluli dalam acuan rasuk','Steel reinforcement in beam formwork'],
+  ['finishing','Kerja kemasan','Finishing works','Lengkapkan ruang dengan penyediaan permukaan, kerja mengecat dan kemasan rapi pada tepi dinding serta bingkai.','Complete the space with surface preparation, painting and carefully finished wall edges and frames.','Kerja mengecat dinding berhampiran kemasan kayu','Painting a wall beside timber trim'],
+];
+const constructionServices = c => `<section class="trade-section" id="subservices"><div class="in-wrap in-section">
+  <h2 class="in-heading">${c.t('Jenis kerja pembinaan','Construction services')}</h2>
+  <div class="trade-grid">${constructionTrades.map(([id,ms,en,msBody,enBody,msAlt,enAlt]) => `<article>${c.img('construction-'+id,c.t(msAlt,enAlt),'trade-photo')}<div><h3>${c.t(ms,en)}</h3><p>${c.t(msBody,enBody)}</p></div></article>`).join('')}</div>
+  </div></section>`;
 const productPage = (c,key) => {
   const product = products[key];
   const title = c.lang === 'ms' ? product.title[1] : product.title[0];
@@ -242,6 +253,7 @@ const productPage = (c,key) => {
   const construction = key === 'construction';
   return `<div class="inner-page in-product">
   ${hero(c, { title, lead: pick(c,product.lead), file: slug + '-hero', alt: name(c,key), parent: ['services',serviceLabel(c)], label: name(c,key), eyebrow: c.t('Perkhidmatan Kami', 'Our Services'), key })}
+  ${construction ? constructionServices(c) : ''}
   <section class="in-wrap in-section" id="options">
     ${heading(construction ? c.t('Semakan skop projek', 'Reviewing the project scope') : c.t('Pilihan untuk ruang anda', 'Options for your space'))}
     ${construction ? iconCards(c,product.options) : `<div class="in-grid in-grid-three in-product-options${product.options.length === 4 ? ' in-product-options-four' : ''}">${product.options.map(([ms,en,bodyMs,bodyEn],i) => card(c,{
@@ -288,7 +300,7 @@ const aboutPage = c => `<div class="inner-page in-about">
       ${figure(c,'about-windows',c.t('Tingkap aluminium hitam yang terbuka','An open black aluminium window'))}</div>
     <ol class="in-number-list">${approach.map(([ms,en,bodyMs,bodyEn],i) => `<li><span>0${i+1}</span><div><h3>${c.t(ms,en)}</h3><p>${c.t(bodyMs,bodyEn)}</p></div></li>`).join('')}</ol>
   </section>
-  <section class="in-band"><div class="in-wrap in-credential">${icon(c,'document')}<div><h2>${c.t('Pendaftaran & Kelayakan','Registration & Qualifications')}</h2><p>${c.t('Maklumat pendaftaran boleh diminta semasa pertanyaan.','You can request registration information when you enquire.')}</p></div>${btn(c,c.url('contact'),c.t('Hubungi Kami','Contact Us'),'', 'arrow')}</div></section>
+  ${registrationDetails(c)}
   <section class="in-tint"><div class="in-wrap in-section in-grid in-grid-two in-location"><div>${heading(c.t('Berpusat di Seri Kembangan','Based in Seri Kembangan'))}<p>${c.t('BUSRA Solution &amp; Services berpusat di Seri Kembangan, Selangor. Kami menyediakan perkhidmatan aluminium, kaca dan pembinaan di seluruh Lembah Klang dan kawasan sekitarnya.','BUSRA Solution &amp; Services is based in Seri Kembangan, Selangor. We provide aluminium, glass and construction services across the Klang Valley and surrounding areas.')}</p>${whatsapp(c)}${info(c)}</div>${figure(c,'about-shopfront',c.t('Fasad kaca dengan pintu aluminium','Glass frontage with aluminium doors'))}</div></section>
   ${cta(c,c.t('Bincangkan keperluan ruang anda.','Let’s discuss what you need for your space.'),'',{ centered:true })}
   </div>`;

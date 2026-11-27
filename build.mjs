@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import {registrationSummary} from './src/registration.mjs';
 import {home} from './src/home.mjs';
 import {pages,faqSchema} from './src/pages.mjs';
 const routes = {
@@ -51,7 +52,7 @@ for(const lang of ['ms','en']){
   const servicesActive=key==='services'||routes[key][0].startsWith('perkhidmatan/');
   const serviceIcons=['door-open','panels-top-left','shower-head','store','building-2','square','layout-panel-top','hard-hat'];
   const serviceItems=Object.keys(routes).filter(k=>routes[k][0].startsWith('perkhidmatan/')).map((k,i)=>
-    `<a href="${url(k)}"${k===key?' aria-current="page"':''}><span class="service-symbol">${icon(serviceIcons[i])}</span>${pages[k].title[lang==='ms'?1:0]}</a>`).join('');
+    `<a href="${url(k)}"${k===key?' aria-current="page"':''}><span class="service-symbol">${icon(serviceIcons[i])}</span>${k==='construction' ? t('Pembinaan','Construction') : pages[k].title[lang==='ms'?1:0]}</a>`).join('');
   const serviceMenu=`<details class="service-nav"><summary class="${servicesActive?'current':''}">${t('Perkhidmatan','Services')}<span class="disclosure-icon">${icon('chevron')}</span></summary><div class="service-options"><a class="directory-link" href="${url('services')}">${t('Semua perkhidmatan','All services')}${icon('arrow')}</a><div class="service-list">${serviceItems}</div></div></details>`;
   const links=(footer=false)=>[['home',t('Utama','Home')],['about',t('Tentang Kami','About Us')],['services',t('Perkhidmatan','Services')],['contact',t('Hubungi Kami','Contact Us')]].map(([k,label])=>{
     if(k==='services'&&!footer) return serviceMenu;
@@ -59,7 +60,7 @@ for(const lang of ['ms','en']){
   }).join('');
   const brand=`<a class="brand" href="${url('home')}" aria-label="BUSRA · ${t('Utama','Home')}"><img src="/media/busra-logo.svg" alt="BUSRA Solution &amp; Services"></a>`;
   const header=`<header class="top">${brand}<button class="mobile-toggle" aria-expanded="false" aria-controls="mainnav" aria-label="${t('Buka menu','Open menu')}">${icon('menu')}</button><nav id="mainnav" aria-label="${t('Navigasi utama','Main menu')}">${links()}</nav><div class="head-end"><div class="langs"><a href="${urlFor(key,'ms')}" lang="ms" ${lang==='ms'?'aria-current="true"':''}>BM</a> | <a href="${urlFor(key,'en')}" lang="en" ${lang==='en'?'aria-current="true"':''}>EN</a></div><a class="btn" href="${quote}">${t('Minta Sebut Harga','Request a Quote')}</a></div></header>`;
-  const footer=`<footer class="bottom">${brand}<div class="footer-grid"><a href="tel:+60197275253">${icon('phone')}019-727 5253</a><a href="${url('contact')}">${icon('pin')}Seri Kembangan, Selangor</a><nav>${links(true)}</nav><div class="utility"><a href="${url('site-works')}">${t('Kerja di Tapak','Site Works')}</a> · <a href="${url('projects')}">${t('Projek','Projects')}</a> · <a href="${url('faq')}">${t('Soalan Lazim','FAQ')}</a> · <a href="${url('privacy')}">${t('Notis Privasi','Privacy Notice')}</a></div></div></footer>`;
+  const footer=`<footer class="bottom">${brand}<div class="footer-grid"><a href="tel:+60197275253">${icon('phone')}019-727 5253</a><a href="${url('contact')}">${icon('pin')}Seri Kembangan, Selangor</a><nav>${links(true)}</nav><div class="utility"><a href="${url('site-works')}">${t('Kerja di Tapak','Site Works')}</a> · <a href="${url('projects')}">${t('Projek','Projects')}</a> · <a href="${url('faq')}">${t('Soalan Lazim','FAQ')}</a> · <a href="${url('privacy')}">${t('Notis Privasi','Privacy Notice')}</a></div></div>${registrationSummary(ctx)}</footer>`;
   const areaServed=[
     {'@type':'Place',name:t('Lembah Klang','Klang Valley'),alternateName:t('Klang Valley','Lembah Klang')},
     t('Kawasan sekitar Lembah Klang','Areas surrounding the Klang Valley')

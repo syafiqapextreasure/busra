@@ -466,6 +466,41 @@ img[data-site-photo][data-loading] {
     to { background-size: min(20%,54px) auto, 46px 3px, cover; }
   }
 }
+.trade-section { background: #f1f6f3; }
+.trade-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: clamp(.7rem,1.4vw,1.4rem); }
+.trade-grid article { display: flex; flex-direction: column; overflow: hidden; background: white; border: 1px solid #d5e1d9; border-radius: .6rem; }
+.trade-grid .trade-photo { width: 100%; aspect-ratio: 1.5; object-fit: cover; }
+.trade-grid article > div { padding: 1rem; border-top: 3px solid #24824b; }
+.trade-grid h3 { font-size: 1.22rem; margin-bottom: .45em; }
+.trade-grid p { color: #36515e; line-height: 1.5; }
+.cidb-mark { display: inline-grid; justify-items: center; align-content: center; width: fit-content; margin: 0; padding: .24rem .36rem; border-radius: .36rem; background: white; color: #142e3c; border: 1px solid #d2dfd9; }
+.cidb-mark img { width: 5.4rem; height: auto; object-fit: contain; }
+.cidb-mark figcaption { white-space: nowrap; font-size: max(11px,.62rem); font-weight: 650; letter-spacing: .01em; line-height: 1.4; }
+.registration-summary { display: flex; align-items: center; flex-wrap: wrap; gap: .7rem; }
+.registration-summary > div { display: grid; justify-items: start; gap: .12em; font-size: max(15px,.82rem); line-height: 1.4; }
+.registration-summary a { color: var(--green); text-decoration: underline; text-underline-offset: .16em; }
+.hero-copy .registration-summary { border-top: 1px solid #c7d7cd; margin-top: 1rem; padding-top: .8rem; }
+.bottom .registration-summary { padding-left: 1.1rem; border-left: 1px solid #628196; }
+.bottom .registration-summary a { color: #e6f3eb; }
+.registration-details { background: #edf5ef; }
+.registration-details header { display: flex; align-items: center; gap: 1.2rem; max-width: 65rem; }
+.registration-details header p { margin-top: .4em; }
+.registration-details .cidb-mark { flex: none; padding: .6rem; }
+.registration-details .cidb-mark img { width: 7rem; }
+.registration-details dl { margin: 1.2rem 0 0; display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; }
+.registration-details dl > div { padding: .2em .9em; border-left: 3px solid #318857; }
+.registration-details dt { font-weight: 780; }
+.registration-details dd { margin: .2em 0 0; }
+.registration-details dd a { color: #075e34; text-decoration: underline; }
+@media(max-width:1050px) {
+  .trade-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .bottom { flex-wrap: wrap; }
+  .bottom .registration-summary { width: 100%; border-left: 0; padding: .8rem 0 0; border-top: 1px solid #628196; }
+}
+@media(max-width:600px) {
+  .trade-grid, .registration-details dl { grid-template-columns: minmax(0,1fr); }
+  .registration-details header { align-items: flex-start; flex-direction: column; }
+}
 
 .works { padding-block: clamp(1.4rem,3vw,3rem); }
 .works-intro { display:grid; grid-template-columns:minmax(0,2fr) minmax(0,3fr); align-items:center; gap:3%; margin-bottom:1.35rem; }
