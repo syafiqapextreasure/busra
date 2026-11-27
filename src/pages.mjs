@@ -9,7 +9,7 @@ const products = {
       ['Pintu Lipat', 'Folding Doors', 'Bukaan luas untuk ruang yang lebih fleksibel.', 'A wide opening for a more flexible space.'],
       ['Pintu Gelangsar', 'Sliding Doors', 'Laluan yang ringkas dan menjimatkan ruang.', 'A streamlined opening that saves space.'],
       ['Rekaan Mengikut Ruang', 'Made for Your Space', 'Susun atur pilihan mengikut keperluan anda.', 'A layout suited to your needs.'],
-      ['Folding Door 3 in 1', 'Folding Door 3 in 1', 'Dua daun pintu kaca berbingkai aluminium hitam dengan bukaan lipat.', 'Two glazed door leaves with black aluminium frames and a folding opening.'],
+      ['Folding Door 3 in 1', 'Folding Door 3 in 1', 'Gabungan kaca dan security mesh yang boleh dilipat', 'Combines glass and security mesh in a folding design.'],
     ],
     checks: [
       ['Saiz bukaan', 'Opening size', 'Tentukan ukuran bukaan yang sesuai dengan ruang.', 'Consider the dimensions of the available opening.'],
@@ -31,7 +31,7 @@ const products = {
       ['Tingkap Casement', 'Casement Windows', 'Bukaan berengsel yang fleksibel.', 'A flexible hinged opening.'],
       ['Tingkap Gelangsar', 'Sliding Windows', 'Panel meluncur untuk menjimatkan ruang.', 'Sliding panels that save space.'],
       ['Bingkai Mengikut Ruang', 'Made-to-Measure Frames', 'Ukuran dan susunan mengikut ruang.', 'Dimensions and layouts suited to your space.'],
-      ['Folding Window 3 in 1', 'Folding Window 3 in 1', 'Tingkap dua panel berbingkai aluminium hitam dengan lapisan jejaring.', 'A two-panel window with black aluminium frames and a mesh screen.'],
+      ['Folding Window 3 in 1', 'Folding Window 3 in 1', 'Gabungan kaca dan security mesh yang boleh dilipat', 'Combines glass and security mesh in a folding design.'],
     ],
     checks: [
       ['Saiz dan kedudukan bukaan', 'Opening size and position', 'Pastikan ukuran memenuhi keperluan ruang.', 'Allow for the dimensions and position of the opening.'],
