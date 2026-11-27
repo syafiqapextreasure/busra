@@ -246,7 +246,6 @@ const productPage = (c,key) => {
     ${heading(construction ? c.t('Semakan skop projek', 'Reviewing the project scope') : c.t('Pilihan untuk ruang anda', 'Options for your space'))}
     ${construction ? iconCards(c,product.options) : `<div class="in-grid in-grid-three in-product-options${product.options.length === 4 ? ' in-product-options-four' : ''}">${product.options.map(([ms,en,bodyMs,bodyEn],i) => card(c,{
       title:c.t(ms,en), image:slug + '-option-' + (i+1), alt:'', copy:c.t(bodyMs,bodyEn),
-      className:slug === 'doors' && i === 3 ? 'in-card-full-photo' : '',
     })).join('')}</div>`}
   </section>
   <section class="in-wrap in-section in-consider in-grid in-grid-two">
