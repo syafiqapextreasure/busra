@@ -43,7 +43,7 @@ function listing(c) {
       <span class="compare-line" aria-hidden="true"><b>‹ ›</b></span>
       <input class="compare-input" hidden type="range" min="0" max="100" value="50" aria-label="${t('Bahagian imej sebelum ubah suai','Portion of the before image')}">
     </div><div class="feature-caption"><div><small>${t('Contoh rekaan pejabat','Illustrated office design')}</small><h2>${t(...feature.title)}</h2></div><a class="btn" href="${url('article-office')}">${t('Lihat cerita','Read the story')} ${icon('arrow')}</a></div></div>
-    <section class="journal-latest"><h2>${t('Artikel terkini','Latest articles')}</h2><div class="lead-stories">${rest.slice(0,3).map(a=>card(c,a,true)).join('')}</div><div class="more-stories">${rest.slice(3).map(a=>card(c,a,false)).join('')}</div></section></div>`;
+    <section class="journal-latest"><h2>${t('Blog terkini','Latest blog posts')}</h2><div class="lead-stories">${rest.slice(0,3).map(a=>card(c,a,true)).join('')}</div><div class="more-stories">${rest.slice(3).map(a=>card(c,a,false)).join('')}</div></section></div>`;
 }
 function detail(c,a) {
   const {t,url,icon,origin}=c;
