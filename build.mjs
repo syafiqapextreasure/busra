@@ -12,6 +12,7 @@ const routes = {
  'glass-mirrors':['perkhidmatan/kaca-cermin','services/glass-mirrors'],
  'aluminium-cabinets':['perkhidmatan/kabinet-aluminium','services/aluminium-kitchen-cabinets'],
  construction:['perkhidmatan/pembinaan','services/construction'],projects:['projek','projects'],
+ 'site-works':['kerja-di-tapak','site-works'],
  'project-detail':['projek/contoh-pintu-lipat','projects/folding-door-design'],
  faq:['soalan-lazim','faq'],contact:['hubungi-kami','contact'],
  'request-quote':['minta-sebut-harga','request-a-quote'],
@@ -58,7 +59,7 @@ for(const lang of ['ms','en']){
   }).join('');
   const brand=`<a class="brand" href="${url('home')}" aria-label="BUSRA · ${t('Utama','Home')}"><img src="/media/busra-logo.svg" alt="BUSRA Solution &amp; Services"></a>`;
   const header=`<header class="top">${brand}<button class="mobile-toggle" aria-expanded="false" aria-controls="mainnav" aria-label="${t('Buka menu','Open menu')}">${icon('menu')}</button><nav id="mainnav" aria-label="${t('Navigasi utama','Main menu')}">${links()}</nav><div class="head-end"><div class="langs"><a href="${urlFor(key,'ms')}" lang="ms" ${lang==='ms'?'aria-current="true"':''}>BM</a> | <a href="${urlFor(key,'en')}" lang="en" ${lang==='en'?'aria-current="true"':''}>EN</a></div><a class="btn" href="${quote}">${t('Minta Sebut Harga','Request a Quote')}</a></div></header>`;
-  const footer=`<footer class="bottom">${brand}<div class="footer-grid"><a href="tel:+60197275253">${icon('phone')}019-727 5253</a><a href="${url('contact')}">${icon('pin')}Seri Kembangan, Selangor</a><nav>${links(true)}</nav><div class="utility"><a href="${url('projects')}">${t('Projek','Projects')}</a> · <a href="${url('faq')}">${t('Soalan Lazim','FAQ')}</a> · <a href="${url('privacy')}">${t('Notis Privasi','Privacy Notice')}</a></div></div></footer>`;
+  const footer=`<footer class="bottom">${brand}<div class="footer-grid"><a href="tel:+60197275253">${icon('phone')}019-727 5253</a><a href="${url('contact')}">${icon('pin')}Seri Kembangan, Selangor</a><nav>${links(true)}</nav><div class="utility"><a href="${url('site-works')}">${t('Kerja di Tapak','Site Works')}</a> · <a href="${url('projects')}">${t('Projek','Projects')}</a> · <a href="${url('faq')}">${t('Soalan Lazim','FAQ')}</a> · <a href="${url('privacy')}">${t('Notis Privasi','Privacy Notice')}</a></div></div></footer>`;
   const areaServed=[
     {'@type':'Place',name:t('Lembah Klang','Klang Valley'),alternateName:t('Klang Valley','Lembah Klang')},
     t('Kawasan sekitar Lembah Klang','Areas surrounding the Klang Valley')
@@ -69,12 +70,12 @@ for(const lang of ['ms','en']){
   if(key==='faq')dataGraph.push(faqSchema(t));
   if(key!=='home')dataGraph.push(crumbSchema);
   if(routes[key][0].startsWith('perkhidmatan/'))dataGraph.push({'@context':'https://schema.org','@type':'Service',name:pt,description:desc,url:origin+url(key),provider:{'@id':origin+'/#busra'},areaServed});
-  const html=`<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(title)}</title><meta name="description" content="${esc(desc)}"><link rel="canonical" href="${origin+url(key)}">${['ms','en','x-default'].map(l=>`<link rel="alternate" hreflang="${l}" href="${origin+urlFor(key,l==='en'?'en':'ms')}">`).join('')}<meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:image" content="${origin}/media/home-hero.webp"><meta name="theme-color" content="#062a42">${key==='quote-confirmation'?'<meta name="robots" content="noindex,follow">':''}<link rel="icon" href="/media/brand-mark.svg"><link rel="stylesheet" href="/site.css"><link rel="preload" as="font" type="font/woff2" crossorigin href="/inter.woff2"><script type="application/ld+json">${JSON.stringify(dataGraph)}</script><script type="module" src="/app.js"></script></head><body data-confirm="${url('quote-confirmation')}"><a class="skip" href="#main">${t('Langkau ke kandungan','Skip to content')}</a>${header}<main id="main">${key==='home'?home(ctx):item.render(ctx)}</main>${footer}</body></html>`;
+  const html=`<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(title)}</title><meta name="description" content="${esc(desc)}"><link rel="canonical" href="${origin+url(key)}">${['ms','en','x-default'].map(l=>`<link rel="alternate" hreflang="${l}" href="${origin+urlFor(key,l==='en'?'en':'ms')}">`).join('')}<meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:image" content="${origin}/media/${key==='site-works'?'works/146':'home-hero'}.webp"><meta name="theme-color" content="#062a42">${key==='quote-confirmation'?'<meta name="robots" content="noindex,follow">':''}<link rel="icon" href="/media/brand-mark.svg"><link rel="stylesheet" href="/site.css"><link rel="preload" as="font" type="font/woff2" crossorigin href="/inter.woff2"><script type="application/ld+json">${JSON.stringify(dataGraph)}</script><script type="module" src="/app.js"></script>${key==='site-works'?'<script type="module" src="/works.js"></script>':''}</head><body data-confirm="${url('quote-confirmation')}"><a class="skip" href="#main">${t('Langkau ke kandungan','Skip to content')}</a>${header}<main id="main">${key==='home'?home(ctx):item.render(ctx)}</main>${footer}</body></html>`;
   write(url(key).slice(1)+'index.html',html);
  }
 }
-write('site.css',['src/site.css','src/inner.css','src/experience.css'].map(f=>fs.readFileSync(f,'utf8')).join('\n'));
-for(const f of ['app.js','inner.js','experience.js'])fs.copyFileSync('src/'+f,'public/'+f);
+write('site.css',['src/site.css','src/inner.css','src/experience.css','src/works.css'].map(f=>fs.readFileSync(f,'utf8')).join('\n'));
+for(const f of ['app.js','inner.js','experience.js','works.js'])fs.copyFileSync('src/'+f,'public/'+f);
 fs.copyFileSync('node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2','public/inter.woff2');
 write('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+Object.keys(routes).filter(k=>k!=='quote-confirmation').flatMap(k=>['ms','en'].map(l=>'<url><loc>'+origin+urlFor(k,l)+'</loc></url>')).join('')+'</urlset>');
 write('robots.txt','User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\nSitemap: '+origin+'/sitemap.xml\n');

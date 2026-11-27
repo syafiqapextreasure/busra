@@ -1,3 +1,5 @@
+import {worksPage} from './works.mjs';
+
 const products = {
   'aluminium-doors': {
     title: ['Aluminium Doors', 'Pintu Aluminium'],
@@ -7,6 +9,7 @@ const products = {
       ['Pintu Lipat', 'Folding Doors', 'Bukaan luas untuk ruang yang lebih fleksibel.', 'A wide opening for a more flexible space.'],
       ['Pintu Gelangsar', 'Sliding Doors', 'Laluan yang ringkas dan menjimatkan ruang.', 'A streamlined opening that saves space.'],
       ['Rekaan Mengikut Ruang', 'Made for Your Space', 'Susun atur pilihan mengikut keperluan anda.', 'A layout suited to your needs.'],
+      ['Folding Door 3 in 1', 'Folding Door 3 in 1', 'Dua daun pintu kaca berbingkai aluminium hitam dengan bukaan lipat.', 'Two glazed door leaves with black aluminium frames and a folding opening.'],
     ],
     checks: [
       ['Saiz bukaan', 'Opening size', 'Tentukan ukuran bukaan yang sesuai dengan ruang.', 'Consider the dimensions of the available opening.'],
@@ -28,6 +31,7 @@ const products = {
       ['Tingkap Casement', 'Casement Windows', 'Bukaan berengsel yang fleksibel.', 'A flexible hinged opening.'],
       ['Tingkap Gelangsar', 'Sliding Windows', 'Panel meluncur untuk menjimatkan ruang.', 'Sliding panels that save space.'],
       ['Bingkai Mengikut Ruang', 'Made-to-Measure Frames', 'Ukuran dan susunan mengikut ruang.', 'Dimensions and layouts suited to your space.'],
+      ['Folding Window 3 in 1', 'Folding Window 3 in 1', 'Tingkap dua panel berbingkai aluminium hitam dengan lapisan jejaring.', 'A two-panel window with black aluminium frames and a mesh screen.'],
     ],
     checks: [
       ['Saiz dan kedudukan bukaan', 'Opening size and position', 'Pastikan ukuran memenuhi keperluan ruang.', 'Allow for the dimensions and position of the opening.'],
@@ -238,9 +242,12 @@ const productPage = (c,key) => {
   const construction = key === 'construction';
   return `<div class="inner-page in-product">
   ${hero(c, { title, lead: pick(c,product.lead), file: slug + '-hero', alt: name(c,key), parent: ['services',serviceLabel(c)], label: name(c,key), eyebrow: c.t('Perkhidmatan Kami', 'Our Services'), key })}
-  <section class="in-wrap in-section">
+  <section class="in-wrap in-section" id="options">
     ${heading(construction ? c.t('Semakan skop projek', 'Reviewing the project scope') : c.t('Pilihan untuk ruang anda', 'Options for your space'))}
-    ${construction ? iconCards(c,product.options) : `<div class="in-grid in-grid-three in-product-options">${product.options.map(([ms,en,bodyMs,bodyEn],i) => card(c,{ title:c.t(ms,en),image:slug + '-option-' + (i+1),alt:'',copy:c.t(bodyMs,bodyEn) })).join('')}</div>`}
+    ${construction ? iconCards(c,product.options) : `<div class="in-grid in-grid-three in-product-options${product.options.length === 4 ? ' in-product-options-four' : ''}">${product.options.map(([ms,en,bodyMs,bodyEn],i) => card(c,{
+      title:c.t(ms,en), image:slug + '-option-' + (i+1), alt:'', copy:c.t(bodyMs,bodyEn),
+      className:slug === 'doors' && i === 3 ? 'in-card-full-photo' : '',
+    })).join('')}</div>`}
   </section>
   <section class="in-wrap in-section in-consider in-grid in-grid-two">
     <div>${heading(construction ? c.t('Maklumat untuk pertanyaan', 'Information to share') : c.t('Apa yang perlu dipertimbangkan', 'What to consider'))}
@@ -298,6 +305,7 @@ const projects = [
 const projectsPage = c => `<div class="inner-page in-projects">
   ${hero(c,{ title:c.t('Projek &amp; Inspirasi','Projects &amp; Inspiration'), label:projectLabel(c),lead:c.t('Terokai pilihan rekaan aluminium dan kaca untuk ruang anda.','Explore aluminium and glass design ideas for your space.'),file:'projects-hero',alt:name(c,'aluminium-doors'),showActions:false,showInfo:false,badge:c.t('Contoh paparan','Design examples') })}
   <section class="in-wrap in-section" data-filter-group>
+    <a class="works-project-link" href="${c.url('site-works')}">${c.t('Lihat foto kerja di tapak','Browse site work photographs')} ${c.icon('arrow')}</a>
     ${chips(c,[['all','Semua','All'],['residential','Kediaman','Residential'],['commercial','Komersial','Commercial'],['aluminium','Aluminium','Aluminium'],['glass','Kaca','Glass']])}
     <div class="in-grid in-grid-two in-project-directory">${projects.map(([ms,en,bodyMs,bodyEn,file,group,key]) => card(c, {
       title:c.t(ms,en),image:'project-' + file,alt:'',copy:c.t(bodyMs,bodyEn),group,href:c.url(key),
@@ -509,6 +517,7 @@ const privacyPage = c => {
     </div></div></div>`;
 };
 export const pages = {
+  'site-works': worksPage,
   about:{title:['About BUSRA','Tentang BUSRA'],description:['Learn about BUSRA Solution & Services in Seri Kembangan.','Kenali BUSRA Solution & Services di Seri Kembangan.'],render:aboutPage},
   services:{title:['Our Services','Perkhidmatan Kami'],description:['Explore aluminium, glass and construction services across the Klang Valley and surrounding areas.','Terokai perkhidmatan aluminium, kaca dan pembinaan di Lembah Klang dan sekitarnya.'],render:servicesPage},
   ...Object.fromEntries(Object.entries(products).map(([key,item]) => [key,{title:item.title,description:[...item.lead].reverse(),render:c => productPage(c,key)}])),
