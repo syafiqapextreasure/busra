@@ -39,31 +39,58 @@ img[data-site-photo][data-loading] {
 .trade-grid article > div { padding: 1rem; border-top: 3px solid #24824b; }
 .trade-grid h3 { font-size: 1.22rem; margin-bottom: .45em; }
 .trade-grid p { color: #36515e; line-height: 1.5; }
-.cidb-mark { display: inline-grid; justify-items: center; align-content: center; width: fit-content; margin: 0; padding: .24rem .36rem; border-radius: .36rem; background: white; color: #142e3c; border: 1px solid #d2dfd9; }
-.cidb-mark img { width: 5.4rem; height: auto; object-fit: contain; }
-.cidb-mark figcaption { white-space: nowrap; font-size: max(11px,.62rem); font-weight: 650; letter-spacing: .01em; line-height: 1.4; }
-.registration-summary { display: flex; align-items: center; flex-wrap: wrap; gap: .7rem; }
-.registration-summary > div { display: grid; justify-items: start; gap: .12em; font-size: max(15px,.82rem); line-height: 1.4; }
-.registration-summary a { color: var(--green); text-decoration: underline; text-underline-offset: .16em; }
-.hero-copy .registration-summary { border-top: 1px solid #c7d7cd; margin-top: 1rem; padding-top: .8rem; }
-.bottom .registration-summary { padding-left: 1.1rem; border-left: 1px solid #628196; }
-.bottom .registration-summary a { color: #e6f3eb; }
-.registration-details { background: #edf5ef; }
-.registration-details header { display: flex; align-items: center; gap: 1.2rem; max-width: 65rem; }
-.registration-details header p { margin-top: .4em; }
-.registration-details .cidb-mark { flex: none; padding: .6rem; }
-.registration-details .cidb-mark img { width: 7rem; }
-.registration-details dl { margin: 1.2rem 0 0; display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; }
-.registration-details dl > div { padding: .2em .9em; border-left: 3px solid #318857; }
-.registration-details dt { font-weight: 780; }
-.registration-details dd { margin: .2em 0 0; }
-.registration-details dd a { color: #075e34; text-decoration: underline; }
+.registration-summary { display: grid; grid-template-columns: auto minmax(0,1fr); align-items: center; gap: .95rem; }
+.reg-logo-panel { display: grid; place-items: center; padding: .65rem .8rem; }
+.reg-logo-panel .cidb-logo { width: clamp(76px,5.6rem,166px); height: auto; }
+.reg-summary-copy { min-width: 0; line-height: 1.35; }
+.reg-summary-copy strong { display: block; font-size: 1rem; letter-spacing: -.025em; }
+.reg-number { display: block; font-size: max(.78rem,14px); margin-top: .12em; font-variant-numeric: tabular-nums; }
+.reg-short-list { display: flex; flex-wrap: wrap; align-items: baseline; gap: .3rem .55rem; margin-top: .32rem; font-size: max(.78rem,14px); font-weight: 630; }
+.reg-short-list a { text-decoration: underline; text-underline-offset: .18em; text-decoration-color: #82afa3; }
+.reg-short-list span { border-left: 1px solid #a2bcb3; padding-left: .55rem; }
+.hero-copy .registration-summary { margin-top: 1.15rem; width: fit-content; max-width: 100%; padding: .65rem 1rem .65rem .25rem; border: 1px solid #d4e4dd; border-radius: .6rem; background: linear-gradient(110deg,white 55%,#edf5f1); box-shadow: 0 3px 12px #123f3009; }
+.hero-copy .reg-logo-panel { align-self: stretch; border-right: 1px solid #cbded5; }
+.hero-copy .reg-number { color: #45616c; }
+.hero-copy .reg-short-list { color: #195e45; }
+.bottom { display: grid; grid-template-columns: minmax(6rem,8rem) minmax(0,1fr) auto; gap: 1.5rem; padding-block: 1.4rem; }
+.bottom .brand { width: 100%; }
+.bottom .registration-summary { padding: .8rem .95rem; column-gap: .7rem; border-radius: .65rem; background: #123e52; border: 1px solid #396071; }
+.bottom .reg-logo-panel { background: #f7fbf9; border-radius: .35rem; padding: .52rem; }
+.bottom .reg-logo-panel img { width: 4.1rem; }
+.bottom .reg-number { color: #d1e4e8; }
+.bottom .reg-short-list { color: #e3f3ec; }
+.bottom .reg-short-list span { border-color: #77979e; }
+.registration-details { padding-block: clamp(1.4rem,3.5vw,3rem); background: linear-gradient(120deg,#f3f8f5,#fbfcfa); border-block: 1px solid #e0ebe4; }
+.registration-details h2 { margin-bottom: .7em; }
+.registration-layout { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.25fr); gap: clamp(.8rem,2.4vw,2.3rem); }
+.reg-record { background: white; border: 1px solid #ccdfd4; border-top: .2rem solid #12856f; border-radius: .65rem; padding: 1rem 1.2rem; box-shadow: 0 5px 18px #14362d09; }
+.reg-record-head { display: flex; align-items: center; justify-content: space-between; gap: .7rem; padding-bottom: .75rem; border-bottom: 1px solid #deebe3; }
+.reg-record-head .cidb-logo { width: 6.8rem; height: auto; object-fit: contain; }
+.reg-record-head strong { color: #145e43; background: #e4f1e8; border-radius: 2em; padding: .2em .75em; font-size: .87rem; white-space: nowrap; }
+.reg-facts { margin: .8rem 0 0; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .7rem; }
+.reg-facts div:first-child { grid-column: 1/-1; }
+.reg-facts dt { color: #506976; font-size: max(.83rem,15px); }
+.reg-facts dd { font-size: 1rem; margin: .05em 0 0; font-weight: 650; }
+.reg-definitions { display: grid; margin: 0; }
+.reg-definitions > div { display: grid; grid-template-columns: 6rem minmax(0,1fr); gap: .55rem; align-items: center; padding: .65rem .1rem; border-bottom: 1px solid #d4e2da; }
+.reg-definitions > div:last-child { border: 0; }
+.reg-definitions dt { display: flex; align-items: center; gap: .65rem; font-weight: 750; }
+.reg-icon { width: 2rem; height: 2rem; border-radius: .55rem; display: grid; place-items: center; color: #156d54; background: #e1eee6; }
+.reg-definitions dd { margin: 0; color: #365562; font-size: max(.95rem,16px); }
 @media(max-width:1050px) {
   .trade-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .bottom { flex-wrap: wrap; }
-  .bottom .registration-summary { width: 100%; border-left: 0; padding: .8rem 0 0; border-top: 1px solid #628196; }
+  .bottom { grid-template-columns: 5.5rem minmax(0,1fr); }
+  .bottom .registration-summary { grid-column: 1/-1; width: fit-content; max-width: 100%; }
+}
+@media(max-width:720px) {
+  .registration-layout { grid-template-columns: minmax(0,1fr); }
+  .bottom { gap: 1rem; }
 }
 @media(max-width:600px) {
-  .trade-grid, .registration-details dl { grid-template-columns: minmax(0,1fr); }
-  .registration-details header { align-items: flex-start; flex-direction: column; }
+  .trade-grid { grid-template-columns: minmax(0,1fr); }
+  .reg-definitions > div { grid-template-columns: 5.2rem minmax(0,1fr); }
+  .reg-short-list { gap: .22rem .4rem; }
+  .reg-short-list span { padding-left: .4rem; }
+  .registration-summary { gap: .65rem; }
+  .hero-copy .reg-logo-panel { padding-inline: .46rem; }
 }

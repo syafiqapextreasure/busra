@@ -1,21 +1,35 @@
-const number = '0120170706-SL190147';
-
-function mark(t) {
-  return `<figure class="cidb-mark"><img src="/media/cidb-contractor-${t('ms','en')}.webp" width="267" height="167" alt="${t('Kontraktor berdaftar CIDB Malaysia','CIDB Malaysia registered contractor')}"><figcaption>${number}</figcaption></figure>`;
-}
+const registrationNumber = '0120170706-SL190147';
+const logo = '<img class="cidb-logo" src="/media/cidb-malaysia.webp" width="585" height="164" alt="CIDB Malaysia">';
 
 export function registrationSummary({t,url}) {
-  return `<div class="registration-summary">${mark(t)}<div><strong>${t('Kontraktor CIDB G2','CIDB G2 contractor')}</strong>
-    <a href="${url('about')}#pendaftaran">${t('Sijil SPKK &amp; STB','SPKK &amp; STB certificates')}</a>
-    <a href="${url('about')}#mof">${t('Pertanyaan MOF','MOF enquiries')}</a></div></div>`;
+  return `<div class="registration-summary">
+    <div class="reg-logo-panel">${logo}</div>
+    <div class="reg-summary-copy"><strong>${t('Kontraktor CIDB G2','CIDB G2 contractor')}</strong>
+      <span class="reg-number">${registrationNumber}</span>
+      <div class="reg-short-list"><a href="${url('about')}#pendaftaran">${t('Sijil SPKK &amp; STB','SPKK &amp; STB certificates')}</a><span>MOF</span></div>
+    </div>
+  </div>`;
 }
 
-export function registrationDetails({t,url}) {
-  return `<section id="pendaftaran" class="registration-details"><div class="in-wrap in-section">
-    <header>${mark(t)}<div><h2>${t('Pendaftaran & kelayakan','Registration & qualifications')}</h2>
-      <p>${t('BUSRA berdaftar dengan CIDB sebagai kontraktor Gred G2 sejak 6 Julai 2017. Tempoh sah pendaftaran yang tertera pada profil syarikat berakhir pada 31 Mac 2029.', 'BUSRA has been registered with CIDB as a Grade G2 contractor since 6 July 2017. The company profile lists the registration as valid through 31 March 2029.')}</p></div></header>
-    <dl><div><dt>SPKK</dt><dd>${t('Sijil Perolehan Kerja Kerajaan untuk perolehan kerja pembinaan kerajaan.', 'Government Works Procurement Certificate for government construction tenders.')}</dd></div>
-      <div><dt>STB</dt><dd>${t('Sijil Taraf Bumiputera bagi kontraktor kerja.', 'Bumiputera Status Certificate for works contractors.')}</dd></div>
-      <div id="mof"><dt>MOF</dt><dd>${t('Untuk urusan pembekalan atau perkhidmatan dengan Kementerian Kewangan Malaysia, ', 'For Ministry of Finance Malaysia supply or service procurement enquiries, ')}<a href="${url('contact')}">${t('hubungi BUSRA bagi menyemak butiran pendaftaran dan kod bidang.', 'contact BUSRA to confirm registration details and field codes.')}</a></dd></div></dl>
-    </div></section>`;
+export function registrationDetails({t,icon}) {
+  const records = [
+    ['file-text','SPKK',t('Sijil Perolehan Kerja Kerajaan','Government Works Procurement Certificate')],
+    ['shield','STB',t('Sijil Taraf Bumiputera bagi kontraktor kerja','Bumiputera Status Certificate for works contractors')],
+    ['landmark','MOF',t('Kementerian Kewangan Malaysia','Ministry of Finance Malaysia')]
+  ];
+  return `<section id="pendaftaran" class="registration-details" aria-labelledby="registration-title">
+    <div class="in-wrap">
+      <h2 id="registration-title">${t('Pendaftaran &amp; kelayakan','Registration &amp; qualifications')}</h2>
+      <div class="registration-layout">
+        <div class="reg-record"><div class="reg-record-head">${logo}<strong>${t('Gred G2','Grade G2')}</strong></div>
+          <dl class="reg-facts">
+            <div><dt>${t('No. pendaftaran CIDB','CIDB registration number')}</dt><dd>${registrationNumber}</dd></div>
+            <div><dt>${t('Berdaftar sejak','Registered since')}</dt><dd>${t('6 Julai 2017','6 July 2017')}</dd></div>
+            <div><dt>${t('Sah sehingga','Valid through')}</dt><dd>${t('31 Mac 2029','31 March 2029')}</dd></div>
+          </dl>
+        </div>
+        <dl class="reg-definitions">${records.map(([symbol,short,full]) => `<div${short==='MOF'?' id="mof"':''}><dt><span class="reg-icon">${icon(symbol)}</span>${short}</dt><dd>${full}</dd></div>`).join('')}</dl>
+      </div>
+    </div>
+  </section>`;
 }
