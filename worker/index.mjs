@@ -13,9 +13,15 @@ export async function renderPublic(request,env,preview=false) {
   if (!original.ok || request.method==='HEAD') return original;
   const html=type.includes('text/html');
   if (!html && !['/robots.txt','/sitemap.xml'].includes(url.pathname)) return original;
-  const productionOrigin=env.SITE_URL?new URL(env.SITE_URL).origin:
-    (url.hostname==='busra.mail-82f.workers.dev' ? url.origin : publicOrigin);
-  const document=(await original.text()).replaceAll(publicOrigin,productionOrigin);
+  const productionOrigin=env.SITE_URL?new URL(env.SITE_URL).origin:publicOrigin;
+  let document=(await original.text()).replaceAll(publicOrigin,productionOrigin);
+  const measurementId=env.GA4_MEASUREMENT_ID;
+  if (html && !preview && url.origin===productionOrigin && /^\/(ms|en)\//.test(url.pathname)
+      && !/\/(terima-kasih|thank-you)\/?$/.test(url.pathname) && /^G-[A-Z0-9]+$/.test(measurementId || '')) {
+    const tag=`<script async src="https://www.googletagmanager.com/gtag/js?id=${measurementId}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${measurementId}',{page_location:location.origin+location.pathname,page_referrer:document.referrer?new URL(document.referrer).origin:'',allow_google_signals:false,allow_ad_personalization_signals:false});</script>`;
+    document=document.replace('</head>',tag+'</head>');
+  }
   const headers=new Headers(original.headers);
   for (const key of ['etag','last-modified','content-length','content-encoding']) headers.delete(key);
   headers.set('referrer-policy','strict-origin-when-cross-origin');

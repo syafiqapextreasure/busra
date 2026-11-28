@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "busra",
+  "keep_vars": true,
   "main": "worker/index.mjs",
   "compatibility_date": "2025-11-01",
   "assets": {
